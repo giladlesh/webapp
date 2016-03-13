@@ -1,4 +1,30 @@
 // Avoid `console` errors in browsers that lack a console.
+/**
+ * JS Library v0
+ */
+
+var UTILS = (function () {
+
+	return {
+		/**
+		 * Check if a given value is a plain Object
+		 *
+		 * @param  {*}       o Any value to be checked
+		 * @return {Boolean}   true if it's an Object
+		 */
+		isObject: function (o) {
+			var toString = Object.prototype.toString;
+			return (toString.call(o) === toString.call({}));
+		},		
+		addEvent: function (elem, type, handler) {
+			elem.addEventListener(type, handler);
+		},
+		removeEvent: function (elem, type, handler) {
+			elem.removeEventListener(type, handler);
+		}
+	};
+}());
+/*
 (function() {
     var method;
     var noop = function () {};
@@ -19,6 +45,6 @@
             console[method] = noop;
         }
     }
-}());
+}());*/
 
 // Place any jQuery/helper plugins in here.

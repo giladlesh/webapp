@@ -94,22 +94,204 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.layout-inline{
+	display:inline-block;
+}
+   
+.layout-wrap-body{
+	background-color:#000000;
+}
+
+.layout-wrap-header{
+	background-color:#000000;
+	height:60px;
+}
+
+.layout-wrap-header a{
+	padding:5%;
+}
+
+.search-box {
+	float:right;
+}
+   
+.page-body {
+	background-color: #767b7a;
+	padding: 2em;
+}
+
+.page-body > div{
+	background-color: red/*#767b7a*/;
+	margin:1em;
+}
+
+.page-body > div:first-child {
+	margin-top: 0em !important;
+}
+
+.center {
+	margin: auto;
+}
+   
+.nav-section-inline {
+	width: 90%;
+}
+
+.nav-section {
+    background: black;
+	vertical-align: text-top;
+	text-align: center;
+	position: relative;
+    color: #FFFFFF;
+	font-size: 26px;
+    padding-bottom: 8%;
+	padding-left:0;
+	padding-right:0;
+	padding-top:1%;
+	margin: 1%;
+	width: 25%;
+	display: inline-block;
+	margin-right: 25px;
+	background-position: center 100px;
+	background-repeat: no-repeat;
+	background-size: 145px;
+}
+.nav-section > p {
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+
+.nav-section:first-child {
+	background-image: url("../Images/icons/action-report-new.png");
+}
+.nav-section:nth-child(2) {
+	background-image: url("../Images/icons/action-report-top.png");
+}
+.nav-section:last-child {
+	background-image: url("../Images/icons/actions-help.png");
+}
+
+.menu {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #EEEEEE;
+	color: black;
+	height: 60px;
+	text-align: left;
+	transition: all 0.5s ease;
+	z-index: 9999;
+}
+.menu-hint {
+	height: 100%;
+	width: 100%;
+	font-size: 18px;
+	position: absolute;
+	bottom: 0px;
+	padding: 0px;
+	margin-left: 20px;
+	float: left;
+}
+.arrow {
+	position: absolute;
+	margin-top: 0px; 
+	float: top;
+	right: 20px;
+	width: 0px; 
+	height:0px; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid black;
+	border-bottom: 0px;
+}
+
+.menu:hover .arrow {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 0px;
+	border-bottom: 10px solid black;
+}
+
+.action-list {
+	margin-top: 30px; 
+	opacity: 0;
+	visibility: hidden; 
+	transition: all 0.5s ease;
+	line-height: 25px;
+	padding: 10px;
+	background-color: white;
+	list-style: none;
+}
+
+.menu:hover .action-list{
+	opacity: 1;
+	visibility: visible;
+	line-height: 20px;
+	margin-top: 60px;
+	padding: 10px;
+	background-color: white;
+	list-style: none;
+}
+
+.menu:hover {
+	background-color: #CCCCCCC;
+}
+
+.menu .action-list a{
+	display: block;
+	width: 100%;
+	line-height: 25px;
+	text-decoration: none;
+	color: black;
+	padding: 10px;
+	font-size: 18px;
+}
 
 
+.tabs-inline {
+	width: 90%;
+}
 
+.tabs {
+	position: relative;
+}
 
+.tabs > div{
+	position: relative;
+	height: 10em;
+	padding: 5em;
+	color: red;
+	background-color: #767b7a;
+}
 
+.tabs li {
+	background: #646464;
+	font-size: 20px;
+	vertical-align: text-top;
+	text-align: center;
+	padding: 1%;
+	width: 20%;
+	display: inline-block;
+}
 
-
-
-
-
-
-
-
-
-
-
+.tabs a{
+	color: #FFFFFF;
+}
+.tabs a:hover{
+	color: #000000;
+}
+.tabs a:visited{
+	color: #FFFFFF;
+}
+.active{
+	color: #000000;
+}
+.tabs a:link{
+	color: #FFFFFF;
+}
 
 /* ==========================================================================
    Helper classes

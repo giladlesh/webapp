@@ -21,22 +21,23 @@
 
         <!-- Add your site or application content here -->
 		<header>
-		  <div class="layout-wrap">
-			<a href="#">netcraft<img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
+		<div class="layout-inline">
+		  <div class="layout-wrap-header">
+			<a href="#"><img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
 
 			<form class="search-box" method="get" action="http://www.google.com">
 				<input type="search" name="q" placeholder="search">
 			</form>
 		  </div>
+		</div>
 		</header>
 
-		<div class="page-body layout-wrap">
-			<div class="notifications">
-			</div>
-
-			<nav>
+		<div class="page-body layout-wrap-body">
+			<div class="notifications"><button id="myBtn">Try it</button></div>
+			<div id="demo"></div>
+			<nav class="nav-section-inline center">
 				<div class="nav-section">
-					<p>Select Reporting Platform</p>
+					<p>Select</p><p>Reporting Platform</p>
 
 					<div class="menu">
 						<div class="menu-hint">
@@ -55,7 +56,7 @@
 				</div>
 
 				<div class="nav-section">
-					<p>Select Dashboard</p>
+					<p>Select</p><p>Dashboard</p>
 
 					<div class="menu">
 						<div class="menu-hint">
@@ -74,7 +75,7 @@
 				</div>
 
 				<div class="nav-section">
-					<p>Help &amp; Tutorials</p>
+					<p>Help &amp;</p><p>Tutorials</p>
 
 					<div class="menu">
 						<div class="menu-hint">
@@ -92,33 +93,35 @@
 					</div>
 				</div>
 			</nav>
+			
+			<div class="tabs-inline center">
+				<div class="tabs">
+					<ul>
+						<li class="active"><a href="#quick-reports">Quick Reports</a>
+						</li>
+						<li><a href="#fmy-folders">My Folders</a>
+						</li>
+						<li><a href="#my-team-folders">My Team Folders</a>
+						</li>
+						<li><a href="#public-folders">Public Folders</a>
+						</li>
+					</ul>
 
-			<div class="tabs">
-				<ul>
-					<li><a href="#quick-reports">Quick Reports</a>
-					</li>
-					<li><a href="#fmy-folders">My Folders</a>
-					</li>
-					<li><a href="#my-team-folders">My Team Folders</a>
-					</li>
-					<li><a href="#public-folders">Public Folders</a>
-					</li>
-				</ul>
+					<div id="quick-reports">quick-reports
+					</div>
 
-				<div id="quick-reports">
-				</div>
+					<div id="fmy-folders">fmy-folders
+					</div>
 
-				<div id="fmy-folders">
-				</div>
+					<div id="my-team-folders">my-team-folders
+					</div>
 
-				<div id="my-team-folders">
-				</div>
-
-				<div id="public-folders">
+					<div id="public-folders">public-folders
+					</div>
 				</div>
 			</div>
 		</div>
-
+		
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
