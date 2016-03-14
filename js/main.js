@@ -30,6 +30,19 @@ UTILS.addEvent(document.getElementById("myBtn"),"click",displayDate)
 UTILS.addEvent(window,"DOMContentLoaded",showRelevantTab)
 
 
+
+UTILS.ajax('file:///C:/Users/eshkar/Desktop/webapp/webapp/data/config.json',
+	{
+		method: 'GET',
+		done: {
+			call: function (data, res) {
+				console.log(data);
+			}
+		}
+	});
+
+
+
 //document.getElementById("myBtn").addEventListener("click", displayDate);
 
 king=2;
