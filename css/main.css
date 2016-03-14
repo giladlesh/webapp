@@ -114,6 +114,11 @@ textarea {
 .search-box {
 	float:right;
 }
+
+.note {
+	background-color:gray;
+	color:black;
+}
    
 .page-body {
 	background-color: #767b7a;

@@ -1,12 +1,45 @@
+var GLOBALDATA = {
+		"quick_reports":[
+			{
+				"Name":"ron","URL":null
+			},
+			{
+				"Name":null,"URL":null
+			}, 
+			{
+				"Name":null,"URL":null
+			}
+		]/*,
+		"my_folders":[
+			{
+				"Name":null,"URL":null
+			},
+			{
+				"Name":null,"URL":null
+			}, 
+			{
+				"Name":null,"URL":null
+			}
+		]*/
+};
 
+function init(){
+	showRelevantTab();
+	if(checkLocalData())
+		GLOBALDATA = loadUserData();
+}
 
 function locationHashChanged() {
 	getHash();
-	showRelevantTab()
+	showRelevantTab();
+	showDropdown();
+	
 }
 window.onhashchange = locationHashChanged;
 
-
+function showDropdown() {
+    document.getElementById("dropdown").style.visibility = "hidden";
+}
 
 function showRelevantTab() {
     document.getElementById("quick-reports").style.visibility = "hidden";
@@ -16,7 +49,6 @@ function showRelevantTab() {
 	document.getElementById(getHash()).style.visibility = "visible";
 }
 
-
 function getHash() {
 	str =window.location.hash;
     str = str.substr(1);	
@@ -25,25 +57,74 @@ function getHash() {
 	return str;
 }
 
-UTILS.addEvent(document.getElementById("myBtn"),"click",displayDate)
+UTILS.addEvent(window,"DOMContentLoaded",init)
 
-UTILS.addEvent(window,"DOMContentLoaded",showRelevantTab)
-
-
-
-UTILS.ajax('file:///C:/Users/eshkar/Desktop/webapp/webapp/data/config.json',
+function getNote(){
+UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/config.json',
 	{
 		method: 'GET',
 		done: {
 			call: function (data, res) {
-				console.log(data);
+				console.log(JSON.parse(res).notification);
+				return JSON.parse(res).notification;
 			}
 		}
 	});
+}
 
+UTILS.addEvent(document.getElementById("report-save"),"click",storeUserData)
 
+UTILS.addEvent(document.getElementById("report-cancel"),"click",function(){
+	document.getElementById(getHash()).style.visibility = "visible";
+})
 
-//document.getElementById("myBtn").addEventListener("click", displayDate);
+function checkLocalData(){
+	str = loadUserData(); // need to change load
+	if (str === null)
+		return false;
+	return true;
+}
+
+function storeUserData(){
+	data = {
+		"quick_reports":[
+			{
+				"Name":document.getElementById("reportname01").value,
+				"URL":document.getElementById("reporturl01").value
+			},
+			{
+				"Name":document.getElementById("reportname02").value,
+				"URL":document.getElementById("reporturl02").value
+			}, 
+			{
+				"Name":document.getElementById("reportname03").value,
+				"URL":document.getElementById("reporturl03").value
+			}
+		]/*,
+		"my_folders":[
+			{
+				"Name":document.getElementById("foldername01").value,
+				"URL":document.getElementById("folderurl01").value
+			},
+			{
+				"Name":document.getElementById("foldername02").value,
+				"URL":document.getElementById("folderurl02").value
+			}, 
+			{
+				"Name":document.getElementById("foldername03").value,
+				"URL":document.getElementById("folderurl03").value
+			}
+		]*/
+	}
+	localStorage.setItem("User_storage", JSON.stringify(data));
+	GLOBALDATA = loadUserData();
+}	
+
+function loadUserData(){
+	item=JSON.parse(localStorage.getItem("User_storage"));
+	console.log(item);
+	return item;
+}	
 
 king=2;
 
@@ -53,4 +134,8 @@ function counter() {
 
 function displayDate() {
     document.getElementById("demo").innerHTML = "Ronnie is the king!!!" + counter();
+}
+
+function notes() {
+    document.getElementById("note").innerHTML = "Hello";//getNote();
 }
