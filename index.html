@@ -21,19 +21,15 @@
 
         <!-- Add your site or application content here -->
 		<header>
-		<div class="layout-inline">
-		  <div class="layout-wrap-header">
-			<a href="#"><img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
-
-			<form class="search-box" method="get" action="http://www.google.com">
-				<input type="search" name="q" placeholder="search">
-			</form>
-		  </div>
-		</div>
+			<div class="layout-wrap">
+				<a href="#" class="logo"><p>netcraft</p><img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
+				<form id="search" class="search-box" action="#" onsubmit="return false">
+					<input type="search" placeholder="search">
+				</form>
+			</div>
 		</header>
-
 		<div class="page-body layout-wrap-body">
-			<div class="notifications center note"><a id="note"></a></div>
+			<div class="notifications" id="note"></div>
 			<nav class="nav-section-inline center">
 				<div class="nav-section">
 					<p>Select</p><p>Reporting Platform</p>
@@ -108,42 +104,43 @@
 
 					<div id="quick-reports">
 						<select><div id="dropdown"></div></select>
-						<form class="">
-						<ul>
-						<li class="report">
-							<p class="report-name">Report 01</p>
-							<p class="report-form">
-								<label for="reportname01">Name</label>
-								<input id="reportname01" type="text" name="Name"/>
-								<label for="reporturl01">URL</label>
-								<input id="reporturl01" type="url" name="URL"/>
-							</p>
-						</li>
-						<li class="report">
-							<p class="report-name">Report 02</p>
-							<p class="report-form">
-								<label for="reportname02">Name</label>
-								<input id="reportname02" type="text" name="Name"/>
-								<label for="reporturl02">URL</label>
-								<input id="reporturl02" type="url" name="URL"/>
-							 </p>
-						</li>
-						<li class="report">
-							<p class="report-name">Report 03</p>
-							<p class="report-form">
-								<label for="reportname03">Name</label>
-								<input id="reportname03" type="text" name="Name"/>
-								<label for="reporturl03">URL</label>
-								<input id="reporturl03" type="url" name="URL"/>
-							</p>
-						</li>
-						</ul>
-						<div class="button-box">
-							<button id="report-save" name="#quick-reports" class="form-button" type="button">Save</button>
-							<button id="report-cancel" name="#quick-reports" class="form-button" type="button">Cancel</button>
-						  </div>
+						<img src="../webapp/Images/icons/settings.png" id="report-setting" class="report-setting"></img>
+						<form id="forms-qr">
+							<ul>
+							<li class="report">
+								<p class="report-name">Report 01</p>
+								<p class="report-form">
+									<label for="reportname01">Name</label>
+									<input id="reportname01" type="text" name="Name"/>
+									<label for="reporturl01">URL</label>
+									<input id="reporturl01" type="url" name="URL"/>
+								</p>
+							</li>
+							<li class="report">
+								<p class="report-name">Report 02</p>
+								<p class="report-form">
+									<label for="reportname02">Name</label>
+									<input id="reportname02" type="text" name="Name"/>
+									<label for="reporturl02">URL</label>
+									<input id="reporturl02" type="url" name="URL"/>
+								 </p>
+							</li>
+							<li class="report">
+								<p class="report-name">Report 03</p>
+								<p class="report-form">
+									<label for="reportname03">Name</label>
+									<input id="reportname03" type="text" name="Name"/>
+									<label for="reporturl03">URL</label>
+									<input id="reporturl03" type="url" name="URL"/>
+								</p>
+							</li>
+							</ul>
+							<div><iframe class= "away" id="dynurl" src="http://www.ynet.co.il" name="misha"></iframe></div>
+							<div class="button-box">
+								<button id="report-save" name="#quick-reports" class="form-button" type="button">Save</button>
+								<button id="report-cancel" name="#quick-reports" class="form-button" type="button">Cancel</button>
+							</div>
 						</form>
-						<!--<iframe id="report-frame" src="about:blank"></iframe>-->
 						</div>
 
 					<div id="fmy-folders">fmy-folders

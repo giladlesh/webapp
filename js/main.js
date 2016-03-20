@@ -27,18 +27,32 @@ function init(){
 	showRelevantTab();
 	if(checkLocalData())
 		GLOBALDATA = loadUserData();
+	getNote();
 }
 
 function locationHashChanged() {
 	getHash();
 	showRelevantTab();
-	showDropdown();
+	hideDropdown(false);
 	
 }
 window.onhashchange = locationHashChanged;
 
-function showDropdown() {
-    document.getElementById("dropdown").style.visibility = "hidden";
+function hideDropdown(vis) {
+	if (vis == true)
+		document.getElementById("dropdown").style.visibility = "visible";
+	else
+		document.getElementById("dropdown").style.visibility = "hidden";
+}
+
+function hideForms() {//ToDo: other set of forms
+    if (document.getElementById("forms-qr").style.visibility == "hidden"){
+		document.getElementById("forms-qr").style.visibility = "visible";
+		document.getElementById("reportname01").focus();
+	}
+	else{
+		document.getElementById("forms-qr").style.visibility = "hidden";
+	}
 }
 
 function showRelevantTab() {
@@ -66,16 +80,18 @@ UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/con
 		done: {
 			call: function (data, res) {
 				console.log(JSON.parse(res).notification);
-				return JSON.parse(res).notification;
+				document.getElementById("note").innerHTML = JSON.parse(res).notification;
 			}
 		}
 	});
 }
 
-UTILS.addEvent(document.getElementById("report-save"),"click",storeUserData)
+UTILS.addEvent(document.getElementById("report-setting"),"click",hideForms)
+
+UTILS.addEvent(document.getElementById("report-save"),"click",storeAction)
 
 UTILS.addEvent(document.getElementById("report-cancel"),"click",function(){
-	document.getElementById(getHash()).style.visibility = "visible";
+	document.getElementById("forms-qr").style.visibility = "hidden";
 })
 
 function checkLocalData(){
@@ -83,6 +99,19 @@ function checkLocalData(){
 	if (str === null)
 		return false;
 	return true;
+}
+
+function storeAction(){
+	storeUserData();
+	if (document.getElementById("reportname01").value != null
+		&& !isUrl()){
+			document.getElementById("reporturl02").focus();
+		}
+	else{
+		storeUserData();
+		document.getElementById('dynurl').src = document.getElementById("reporturl01").value;
+		document.getElementById("reporturl03").focus();
+	}
 }
 
 function storeUserData(){
@@ -136,6 +165,11 @@ function displayDate() {
     document.getElementById("demo").innerHTML = "Ronnie is the king!!!" + counter();
 }
 
-function notes() {
-    document.getElementById("note").innerHTML = "Hello";//getNote();
+function isUrl() {//ToDo automaticly add http and pass as param.
+	var tempurl = document.getElementById("reporturl01").value;
+	var urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
+		if (urlRegex.test(tempurl) == false && tempurl!="") {
+			return false;
+		}
+	return true;
 }
