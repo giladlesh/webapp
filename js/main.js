@@ -30,13 +30,16 @@ function init(){
 	getNote();
 	resetSelectElems();
 	document.getElementById("dynurl").style.visibility = "hidden";
+	inputsAddKeyEvent();
 }
 
 function resetSelectElems(){
 	var select = document.getElementById("dropdown");
 	var length = select.options.length;
+	console.log(length);
 	for (i = 0; i < length; i++) {
-		select.options[i] = null;
+		console.log(select.options[i]);
+		select.options[i] = null;	
 	}
 }
 
@@ -89,19 +92,33 @@ UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/con
 		method: 'GET',
 		done: {
 			call: function (data, res) {
-				console.log(JSON.parse(res).notification);
 				document.getElementById("note").innerHTML = JSON.parse(res).notification;
 			}
 		}
 	});
 }
 
+
 UTILS.addEvent(document.getElementById("report-setting"),"click",hideForms)
 
-UTILS.addEvent(document.getElementById("dropdown"),"change",function(){
+var GLOBALINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
+function inputsAddKeyEvent(){
+	for (i=0; i<GLOBALINPUTS.length; i++){
+		UTILS.addEvent(document.getElementById(GLOBALINPUTS[i]),"keypress",function() {
+			if (event.keyCode == 13)
+				document.getElementById("report-save").click();
+			else if (event.keyCode == 27)
+				document.getElementById("report-cancel").click();
+		});
+	}
+}
+
+UTILS.addEvent(document.getElementById("dropdown"),"change",dropDownSrcVis);
+
+function dropDownSrcVis(){
 	document.getElementById("dynurl").src = document.getElementById("dropdown").value;
 	document.getElementById("dynurl").style.visibility = "visible";
-});
+}
 
 UTILS.addEvent(document.getElementById("expand"),"click",function(){
 	url = document.getElementById("dropdown").value;
@@ -121,11 +138,14 @@ function checkLocalData(){
 	return true;
 }
 
-var GLOBALBOX = "";
-
 function checkForms(name,url){ // need to address "null" "null"
-	flag = "";
+	flag = "init";
 	if (document.getElementById(name).value != ""
+		&& isUrl(url)){
+			createElemDropdown(document.getElementById(name).value,document.getElementById(url).value);
+			flag = "succeded";
+		}
+	else if (document.getElementById(name).value != ""
 		&& !isUrl(url)){
 			document.getElementById(url).focus();
 			document.getElementById(url).className = "borderlight";
@@ -137,8 +157,6 @@ function checkForms(name,url){ // need to address "null" "null"
 			document.getElementById(name).className = "borderlight";
 			flag = name;
 		}
-	if (flag=="")
-		createElemDropdown(document.getElementById(name).value,document.getElementById(url).value);
 	return flag
 }
 
@@ -159,26 +177,21 @@ function createElemDropdown(name,url){
     document.getElementById("dropdown").appendChild(z);
 }
 
+
 function storeAction(){
-	resetFormsBorder(GLOBALBOX);
+	resetSelectElems();
 	flag = "";
-	
 	flag = checkForms("reportname01","reporturl01");
-	if (flag == ""){
+	if (flag == "succeded"){
 		flag = checkForms("reportname02","reporturl02");
 	}
-	if (flag == ""){
+	if (flag == "succeded"){
 		flag = checkForms("reportname03","reporturl03");
 	}
-
-	if (flag == ""){
+	if (flag == "succeded" || flag == "init"){
 		storeUserData();
-		console.log(flag);
-		/*document.getElementById('dynurl').src = ;*/
 		document.getElementById("forms-qr").style.visibility = "hidden";
-	}
-	else{
-		GLOBALBOX = flag;
+		dropDownSrcVis();
 	}
 }
 
@@ -222,12 +235,6 @@ function loadUserData(){
 	console.log(item);
 	return item;
 }	
-
-king=2;
-
-function counter() {
-	king = king*king;
-	return king;}
 
 function displayDate() {
     document.getElementById("demo").innerHTML = "Ronnie is the king!!!" + counter();

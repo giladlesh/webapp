@@ -94,24 +94,56 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+
+.layout-wrap {
+  background-color:#000000;
+  margin-left: auto;
+  margin-right: auto; }
+@media only screen and (max-width: 800px) {
+  .layout-wrap {
+    width: auto; } }
+@media only screen and (min-width: 800px) {
+  .layout-wrap {
+    width: 75%; } }
+
 .layout-inline{
 	display:inline-block;
 }
    
 .layout-wrap-body{
+    margin-right:10em;
+    margin-left: 10em;
 	background-color:#000000;
 }
 
 .layout-wrap-header{
 	background-color:#000000;
-	height:60px;
+    margin-right: auto;
+    margin-right: auto;
 }
 
 .layout-wrap-header a{
 	padding:5%;
 }
 
+
+header {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: black; }
+header .layout-wrap {
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-top: 5px; }
+header .layout-wrap > * {
+  display: inline-block; }
+
+
 .search-box {
+    margin-top: 0.27em;
 	float:right;
 }
 
@@ -119,6 +151,13 @@ textarea {
 	background-color:gray;
 	color:black;
 }
+
+.notifications {
+  margin:0em !important;
+  margin-top: 35px !important;
+  border: 1px solid #f5aca6;
+  background-color: #ffecec !important; 
+  padding: 7px; }
    
 .page-body {
 	background-color: #767b7a;
@@ -131,15 +170,22 @@ textarea {
 }
 
 .page-body > div:first-child {
-	margin-top: 0em !important;
+	margin-top: 0em;
 }
+
+.logo {
+  height: 40px; }
+.logo p {
+  display: none;}
 
 .center {
 	margin: auto;
 }
    
 .nav-section-inline {
-	width: 90%;
+	width: 100%;
+    background-color: lightgray;
+    margin-top: 1em;
 }
 
 .nav-section {
@@ -153,10 +199,11 @@ textarea {
 	padding-left:0;
 	padding-right:0;
 	padding-top:1%;
-	margin: 1%;
 	width: 25%;
 	display: inline-block;
-	margin-right: 25px;
+    margin-left: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 	background-position: center 100px;
 	background-repeat: no-repeat;
 	background-size: 145px;
@@ -169,12 +216,18 @@ textarea {
 
 .nav-section:first-child {
 	background-image: url("../Images/icons/action-report-new.png");
+    height: 4.21em;
+    width: 11em;
 }
 .nav-section:nth-child(2) {
 	background-image: url("../Images/icons/action-report-top.png");
+    height: 4.21em;
+    width: 11em;
 }
 .nav-section:last-child {
 	background-image: url("../Images/icons/actions-help.png");
+    height: 4.21em;
+    width: 11em;
 }
 
 .menu {
@@ -202,9 +255,10 @@ textarea {
 }
 .arrow {
 	position: absolute;
-	margin-top: 0px; 
+	margin-top: -1.8em;
+    margin-right:0.5em; 
 	float: top;
-	right: 20px;
+	right: 1em;
 	width: 0px; 
 	height:0px; 
 	border-left: 10px solid transparent;
@@ -315,6 +369,15 @@ textarea {
     border-color: black;
 	border-width: 1px;
 }
+
+.frame {
+  width: 100%;
+  height: 500px;
+  border: 1px solid white;
+  margin-top: 50px;
+  -moz-box-shadow: gray 0px 0px 5px;
+  -webkit-box-shadow: gray 0px 0px 5px;
+  box-shadow: gray 0px 0px 5px; }
 
 /* ==========================================================================
    dropdown
