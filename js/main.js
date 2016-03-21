@@ -9,7 +9,7 @@ var GLOBALDATA = {
 			{
 				"Name":null,"URL":null
 			}
-		]/*,
+		],
 		"my_folders":[
 			{
 				"Name":null,"URL":null
@@ -20,7 +20,7 @@ var GLOBALDATA = {
 			{
 				"Name":null,"URL":null
 			}
-		]*/
+		]
 };
 
 function init(){
@@ -30,16 +30,15 @@ function init(){
 	getNote();
 	resetSelectElems();
 	document.getElementById("dynurl").style.visibility = "hidden";
+	document.getElementById("dynurlfolder").style.visibility = "hidden";
 	inputsAddKeyEvent();
 }
 
 function resetSelectElems(){
-	var select = document.getElementById("dropdown");
-	var length = select.options.length;
-	console.log(length);
+	var tag = document.getElementById("dropdown");
+	var length = tag.options.length;
 	for (i = 0; i < length; i++) {
-		console.log(select.options[i]);
-		select.options[i] = null;	
+		tag.remove(tag.length-1);	
 	}
 }
 
@@ -47,7 +46,6 @@ function locationHashChanged() {
 	getHash();
 	showRelevantTab();
 	hideDropdown(false);
-	
 }
 window.onhashchange = locationHashChanged;
 
@@ -58,13 +56,26 @@ function hideDropdown(vis) {
 		document.getElementById("dropdown").style.visibility = "hidden";
 }
 
-function hideForms() {//ToDo: other set of forms
-    if (document.getElementById("forms-qr").style.visibility == "hidden"){
-		document.getElementById("forms-qr").style.visibility = "visible";
-		document.getElementById("reportname01").focus();
+function hideForms() {
+	curr_form = getHash();
+	console.log(curr_form);
+	if (curr_form == "quick-reports"){
+		if (document.getElementById("forms-qr").style.visibility == "hidden"){
+			document.getElementById("forms-qr").style.visibility = "visible";
+			document.getElementById("reportname01").focus();
+		}
+		else{
+			document.getElementById("forms-qr").style.visibility = "hidden";
+		}
 	}
-	else{
-		document.getElementById("forms-qr").style.visibility = "hidden";
+	else if (curr_form == "my-team-folders"){
+		if (document.getElementById("forms-tf").style.visibility == "hidden"){
+			document.getElementById("forms-tf").style.visibility = "visible";
+			document.getElementById("foldername01").focus();
+		}
+		else{
+			document.getElementById("forms-tf").style.visibility = "hidden";
+		}
 	}
 }
 
@@ -73,14 +84,13 @@ function showRelevantTab() {
 	document.getElementById("fmy-folders").style.visibility = "hidden";
 	document.getElementById("my-team-folders").style.visibility = "hidden";
 	document.getElementById("public-folders").style.visibility = "hidden";
-	document.getElementById(getHash()).style.visibility = "visible";
+	if (getHash() != "" || getHash() != null)
+		document.getElementById(getHash()).style.visibility = "visible";
 }
 
 function getHash() {
-	str =window.location.hash;
-    str = str.substr(1);	
-	if (str.length == 0)
-		return "quick-reports";
+	str = window.location.hash;
+    str = str.substr(1);
 	return str;
 }
 
@@ -98,17 +108,25 @@ UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/con
 	});
 }
 
-
 UTILS.addEvent(document.getElementById("report-setting"),"click",hideForms)
 
-var GLOBALINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
+var GLOBALTFINPUTS =["foldername01", "foldername02","foldername03","folderurl01", "folderurl02","folderurl03"];
+var GLOBALQRINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
 function inputsAddKeyEvent(){
-	for (i=0; i<GLOBALINPUTS.length; i++){
-		UTILS.addEvent(document.getElementById(GLOBALINPUTS[i]),"keypress",function() {
+	for (i=0; i<GLOBALQRINPUTS.length; i++){
+		UTILS.addEvent(document.getElementById(GLOBALQRINPUTS[i]),"keypress",function() {
 			if (event.keyCode == 13)
 				document.getElementById("report-save").click();
 			else if (event.keyCode == 27)
 				document.getElementById("report-cancel").click();
+		});
+	}
+	for (i=0; i<GLOBALTFINPUTS.length; i++){
+		UTILS.addEvent(document.getElementById(GLOBALTFINPUTS[i]),"keypress",function() {
+			if (event.keyCode == 13)
+				document.getElementById("folder-save").click();
+			else if (event.keyCode == 27)
+				document.getElementById("folder-cancel").click();
 		});
 	}
 }
@@ -116,8 +134,11 @@ function inputsAddKeyEvent(){
 UTILS.addEvent(document.getElementById("dropdown"),"change",dropDownSrcVis);
 
 function dropDownSrcVis(){
-	document.getElementById("dynurl").src = document.getElementById("dropdown").value;
-	document.getElementById("dynurl").style.visibility = "visible";
+	curr_form = getHash();
+	if (curr_form == "quick-reports"){
+		document.getElementById("dynurl").src = document.getElementById("dropdown").value;
+		document.getElementById("dynurl").style.visibility = "visible";
+	}
 }
 
 UTILS.addEvent(document.getElementById("expand"),"click",function(){
@@ -160,9 +181,11 @@ function checkForms(name,url){ // need to address "null" "null"
 	return flag
 }
 
-function resetFormsBorder(temp){
-	if (temp != "")
-		document.getElementById(temp).className = "border";
+function resetAllFormsBorders(temp){
+	if (true){
+		for (i=0; i<GLOBALQRINPUTS.length; i++)
+		document.getElementById(GLOBALQRINPUTS[i]).className = "border";
+	}
 }
 
 function firstToUpperCase( str ) {
@@ -192,6 +215,7 @@ function storeAction(){
 		storeUserData();
 		document.getElementById("forms-qr").style.visibility = "hidden";
 		dropDownSrcVis();
+		resetAllFormsBorders(true);
 	}
 }
 
@@ -210,7 +234,7 @@ function storeUserData(){
 				"Name":document.getElementById("reportname03").value,
 				"URL":document.getElementById("reporturl03").value
 			}
-		]/*,
+		],
 		"my_folders":[
 			{
 				"Name":document.getElementById("foldername01").value,
@@ -224,7 +248,7 @@ function storeUserData(){
 				"Name":document.getElementById("foldername03").value,
 				"URL":document.getElementById("folderurl03").value
 			}
-		]*/
+		]
 	}
 	localStorage.setItem("User_storage", JSON.stringify(data));
 	GLOBALDATA = loadUserData();
@@ -242,6 +266,12 @@ function displayDate() {
 
 function isUrl(reportnum) {//ToDo automaticly add http and pass as param.
 	var tempurl = document.getElementById(reportnum).value;
+	var tempurl = tempurl.toLowerCase();
+	if ( -1 == tempurl.indexOf("https://"))
+		if ( -1 == tempurl.indexOf("http://")){
+			tempurl = "http://"+tempurl;
+			document.getElementById(reportnum).value = tempurl;
+		}
 	var urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
 		if (urlRegex.test(tempurl) == false /*&& tempurl!=""*/) {
 			return false;

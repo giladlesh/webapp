@@ -128,7 +128,7 @@ textarea {
 
 
 header {
-  z-index: 99;
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
@@ -166,7 +166,7 @@ header .layout-wrap > * {
 
 .page-body > div{
 	background-color: red/*#767b7a*/;
-	margin:1em;
+	margin:auto;
 }
 
 .page-body > div:first-child {
@@ -195,7 +195,7 @@ header .layout-wrap > * {
 	position: relative;
     color: #FFFFFF;
 	font-size: 26px;
-    padding-bottom: 8%;
+    padding-bottom: 4%;
 	padding-left:0;
 	padding-right:0;
 	padding-top:1%;
@@ -204,7 +204,7 @@ header .layout-wrap > * {
     margin-left: 1em;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-	background-position: center 100px;
+	background-position: center 2.4em;
 	background-repeat: no-repeat;
 	background-size: 145px;
 }
@@ -212,6 +212,7 @@ header .layout-wrap > * {
 	margin-bottom: 0;
 	margin-top: 0;
 	padding: 0;
+    font-size: 0.7em;
 }
 
 .nav-section:first-child {
@@ -238,19 +239,19 @@ header .layout-wrap > * {
 	width: 100%;
 	background-color: #EEEEEE;
 	color: black;
-	height: 60px;
+	height: 1.4em;
 	text-align: left;
 	transition: all 0.5s ease;
-	z-index: 9999;
+	z-index: 5;
 }
 .menu-hint {
 	height: 100%;
 	width: 100%;
-	font-size: 18px;
+	font-size: 0.6em;
 	position: absolute;
-	bottom: 0px;
+	bottom: 0.5em;
 	padding: 0px;
-	margin-left: 20px;
+	margin-left: 0.5em;
 	float: left;
 }
 .arrow {
@@ -267,7 +268,7 @@ header .layout-wrap > * {
 	border-bottom: 0px;
 }
 
-.menu:hover .arrow {
+.nav-section:hover .arrow {
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	border-top: 0px;
@@ -275,7 +276,7 @@ header .layout-wrap > * {
 }
 
 .action-list {
-	margin-top: 30px; 
+	margin-top: 1.4em !important;
 	opacity: 0;
 	visibility: hidden; 
 	transition: all 0.5s ease;
@@ -285,7 +286,7 @@ header .layout-wrap > * {
 	list-style: none;
 }
 
-.menu:hover .action-list{
+.nav-section:hover .action-list{
 	opacity: 1;
 	visibility: visible;
 	line-height: 20px;
@@ -309,21 +310,36 @@ header .layout-wrap > * {
 	font-size: 18px;
 }
 
+.dropdown-wrapper{
+    width: 100%;
+    left: 0;
+    right: 0;
+    position: absolute !important; 
+    display: inline-block;
+}
 
 .tabs-inline {
-	width: 90%;
+	width: 100%;
 }
 
 .tabs {
 	position: relative;
 }
+.tabs:first-child{
+    margin-left: -2.5em !important;
+}
 
+.tabs:last-child{
+    margin-right: -7.2em !important;
+}
 .tabs > div{
 	position: relative;
 	height: 10em;
 	padding: 5em;
 	color: red;
 	background-color: #767b7a;
+    margin-inline-start:1em;
+    margin-inline-end: 6em
 }
 
 .tabs li {

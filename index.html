@@ -101,11 +101,12 @@
 						<li><a href="#public-folders">Public Folders</a>
 						</li>
 					</ul>
-
+                    <div class="dropdown-wrapper">
+                        <select class="select-box" id="dropdown"></select>
+                        <img src="../webapp/Images/icons/settings.png" id="report-setting" align=right></img>
+                        <img src="../webapp/Images/icons/expand.png" id="expand" align=right></img>
+                    <div/>
 					<div id="quick-reports">
-						<select class="select-box" id="dropdown"></select>
-						<img src="../webapp/Images/icons/settings.png" id="report-setting" align=right></img>
-						<img src="../webapp/Images/icons/expand.png" id="expand" align=right></img>
 						<form id="forms-qr">
 							<ul>
 							<li class="report">
@@ -144,13 +145,51 @@
 						<div><iframe class= "frame" id="dynurl" src="about:blank"></iframe></div>
 					</div>
 
-					<div id="fmy-folders">fmy-folders
+					<div id="fmy-folders">
+						<iframe class= "frame" id="fmy-folders" src="http://www.ptc.com"></iframe>
 					</div>
 
-					<div id="my-team-folders">my-team-folders
+					<div id="my-team-folders">
+						<form id="forms-tf">
+							<ul>
+							<li class="report">
+								<p class="report-name">Report 01</p>
+								<p class="report-form">
+									<label for="foldername01">Name</label>
+									<input class="border" id="foldername01" type="text" name="Name"/>
+									<label for="folderurl01">URL</label>
+									<input class="border" id="folderurl01" type="url" name="URL"/>
+								</p>
+							</li>
+							<li class="report">
+								<p class="report-name">Report 02</p>
+								<p class="report-form">
+									<label for="foldername02">Name</label>
+									<input id="foldername02" type="text" name="Name"/>
+									<label for="folderurl02">URL</label>
+									<input id="folderurl02" type="url" name="URL"/>
+								 </p>
+							</li>
+							<li class="report">
+								<p class="report-name">Report 03</p>
+								<p class="report-form">
+									<label for="foldername03">Name</label>
+									<input id="foldername03" type="text" name="Name"/>
+									<label for="folderurl03">URL</label>
+									<input id="folderurl03" type="url" name="URL"/>
+								</p>
+							</li>
+							</ul>
+							<div class="button-box">
+								<button id="folder-save" name="#my-team-folders" class="form-button" type="button">Save</button>
+								<button id="folder-cancel" name="#my-team-folders" class="form-button" type="button">Cancel</button>
+							</div>
+						</form>
+						<div><iframe class= "frame" id="dynurlteam" src="about:blank"></iframe></div>
 					</div>
 
-					<div id="public-folders">public-folders
+					<div id="public-folders">
+						<iframe class= "frame" id="frame-public-folders" src="http://www.netcraft.co.il"></iframe>
 					</div>
 				</div>
 			</div>
