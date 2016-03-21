@@ -28,6 +28,16 @@ function init(){
 	if(checkLocalData())
 		GLOBALDATA = loadUserData();
 	getNote();
+	resetSelectElems();
+	document.getElementById("dynurl").style.visibility = "hidden";
+}
+
+function resetSelectElems(){
+	var select = document.getElementById("dropdown");
+	var length = select.options.length;
+	for (i = 0; i < length; i++) {
+		select.options[i] = null;
+	}
 }
 
 function locationHashChanged() {
@@ -88,6 +98,16 @@ UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/con
 
 UTILS.addEvent(document.getElementById("report-setting"),"click",hideForms)
 
+UTILS.addEvent(document.getElementById("dropdown"),"change",function(){
+	document.getElementById("dynurl").src = document.getElementById("dropdown").value;
+	document.getElementById("dynurl").style.visibility = "visible";
+});
+
+UTILS.addEvent(document.getElementById("expand"),"click",function(){
+	url = document.getElementById("dropdown").value;
+	window.open(url);
+});
+
 UTILS.addEvent(document.getElementById("report-save"),"click",storeAction)
 
 UTILS.addEvent(document.getElementById("report-cancel"),"click",function(){
@@ -101,16 +121,64 @@ function checkLocalData(){
 	return true;
 }
 
-function storeAction(){
-	storeUserData();
-	if (document.getElementById("reportname01").value != null
-		&& !isUrl()){
-			document.getElementById("reporturl02").focus();
+var GLOBALBOX = "";
+
+function checkForms(name,url){ // need to address "null" "null"
+	flag = "";
+	if (document.getElementById(name).value != ""
+		&& !isUrl(url)){
+			document.getElementById(url).focus();
+			document.getElementById(url).className = "borderlight";
+			flag = url;
 		}
-	else{
+	else if (document.getElementById(name).value == ""
+		&& document.getElementById(url).value != ""){
+			document.getElementById(name).focus();
+			document.getElementById(name).className = "borderlight";
+			flag = name;
+		}
+	if (flag=="")
+		createElemDropdown(document.getElementById(name).value,document.getElementById(url).value);
+	return flag
+}
+
+function resetFormsBorder(temp){
+	if (temp != "")
+		document.getElementById(temp).className = "border";
+}
+
+function firstToUpperCase( str ) {
+    return str.substr(0, 1).toUpperCase() + str.substr(1);
+}
+
+function createElemDropdown(name,url){
+	var z = document.createElement("option");
+    z.setAttribute("value", url);
+	var t = document.createTextNode(firstToUpperCase(name));
+    z.appendChild(t);
+    document.getElementById("dropdown").appendChild(z);
+}
+
+function storeAction(){
+	resetFormsBorder(GLOBALBOX);
+	flag = "";
+	
+	flag = checkForms("reportname01","reporturl01");
+	if (flag == ""){
+		flag = checkForms("reportname02","reporturl02");
+	}
+	if (flag == ""){
+		flag = checkForms("reportname03","reporturl03");
+	}
+
+	if (flag == ""){
 		storeUserData();
-		document.getElementById('dynurl').src = document.getElementById("reporturl01").value;
-		document.getElementById("reporturl03").focus();
+		console.log(flag);
+		/*document.getElementById('dynurl').src = ;*/
+		document.getElementById("forms-qr").style.visibility = "hidden";
+	}
+	else{
+		GLOBALBOX = flag;
 	}
 }
 
@@ -165,10 +233,10 @@ function displayDate() {
     document.getElementById("demo").innerHTML = "Ronnie is the king!!!" + counter();
 }
 
-function isUrl() {//ToDo automaticly add http and pass as param.
-	var tempurl = document.getElementById("reporturl01").value;
+function isUrl(reportnum) {//ToDo automaticly add http and pass as param.
+	var tempurl = document.getElementById(reportnum).value;
 	var urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
-		if (urlRegex.test(tempurl) == false && tempurl!="") {
+		if (urlRegex.test(tempurl) == false /*&& tempurl!=""*/) {
 			return false;
 		}
 	return true;

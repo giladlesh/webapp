@@ -297,6 +297,24 @@ textarea {
 .tabs a:link{
 	color: #FFFFFF;
 }
+.away{
+	color: #000000;
+}
+.select-box {
+  margin-left: 1rem;
+  width: 10rem; }
+
+.borderlight{
+	border-style: solid;
+    border-color: red;
+	border-width: 2px;
+}
+
+.border{
+	border-style: solid;
+    border-color: black;
+	border-width: 1px;
+}
 
 /* ==========================================================================
    dropdown

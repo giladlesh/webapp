@@ -103,17 +103,18 @@
 					</ul>
 
 					<div id="quick-reports">
-						<select><div id="dropdown"></div></select>
-						<img src="../webapp/Images/icons/settings.png" id="report-setting" class="report-setting"></img>
+						<select class="select-box" id="dropdown"></select>
+						<img src="../webapp/Images/icons/settings.png" id="report-setting" align=right></img>
+						<img src="../webapp/Images/icons/expand.png" id="expand" align=right></img>
 						<form id="forms-qr">
 							<ul>
 							<li class="report">
 								<p class="report-name">Report 01</p>
 								<p class="report-form">
 									<label for="reportname01">Name</label>
-									<input id="reportname01" type="text" name="Name"/>
+									<input class="border" id="reportname01" type="text" name="Name"/>
 									<label for="reporturl01">URL</label>
-									<input id="reporturl01" type="url" name="URL"/>
+									<input class="border" id="reporturl01" type="url" name="URL"/>
 								</p>
 							</li>
 							<li class="report">
@@ -135,13 +136,13 @@
 								</p>
 							</li>
 							</ul>
-							<div><iframe class= "away" id="dynurl" src="http://www.ynet.co.il" name="misha"></iframe></div>
 							<div class="button-box">
 								<button id="report-save" name="#quick-reports" class="form-button" type="button">Save</button>
 								<button id="report-cancel" name="#quick-reports" class="form-button" type="button">Cancel</button>
 							</div>
 						</form>
-						</div>
+						<div><iframe class= "away" id="dynurl" src="http://www.ynet.co.il" name="misha"></iframe></div>
+					</div>
 
 					<div id="fmy-folders">fmy-folders
 					</div>
