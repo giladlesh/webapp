@@ -382,7 +382,6 @@ header .layout-wrap > * {
 	position: relative;
 	height: auto;
 	padding: 0em;
-	color: red;
 	background-color: whitesmoke;
     width: 93%;
 }
@@ -402,7 +401,7 @@ header .layout-wrap > * {
     background: lightgray;
 }
 
-.tabs-inlineselected li {
+.tabs-inlin {
 	background: lightgray;
     color:black;
 	font-size: 20px;
