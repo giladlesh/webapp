@@ -31,8 +31,9 @@ var GLOBALTFINPUTS =["foldername01","foldername02","foldername03","folderurl01",
 
 var GLOBALQRINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
 
-var GLOBALTABS = ["quick-reports","my-folders","my-team-folders","public-folders"]
+var GLOBALTABS =["quick-reports","my-folders","my-team-folders","public-folders"];
 
+var GLOBALFRAMES =["dynurl","my-folders-frame","dynurlteam","frame-public-folders"];
 
 
 /***************************************************
@@ -91,19 +92,6 @@ function resetSelectElems(){
 		tag.remove(tag.length-1);	
 	}
 }
-/*
-function locationHashChanged() {
-	console.log("Hello")
-	showRelevantTab();
-}*/
-window.onhashchange = locationHashChanged();
-
-function dropdownVisibility(vis) {
-	if (vis == true)
-		getElem("dropdown").style.visibility = "visible";
-	else
-		getElem("dropdown").style.visibility = "hidden";
-}
 
 function getHash() {
 	str = window.location.hash;
@@ -118,24 +106,42 @@ function resetAllFormsBorders(temp){
 	}
 }
 
-function resetAllTabsVis(tab){
-	for (i=0; i<.length; i++)
-		getElem(GLOBALTABS[i]).className = "z-index-low";
-	}
-	if (tabs != null)
-		getElem(tab).className = "z-index-high";
-}
-
-function firstToUpperCase( str ) {
-    return str.substr(0, 1).toUpperCase() + str.substr(1);
+function firstToUpperCase(str) {
+    return str.substr(0,1).toUpperCase() + str.substr(1);
 }
 
 function dropdownWrapperVis(vis){
-	elem = getElem("dropdown-wrapper");
-	if (vis)
-		elem.style.visibility= "visible";
-	else
-		elem.style.visibility= "hidden";
+	elem_1 = getElem("report-setting");
+	elem_2 = getElem("dropdown");
+	if (vis){
+		elem_1.style.visibility= "visible";
+		elem_2.style.visibility= "visible";
+	}
+	else{
+		elem_1.style.visibility= "hidden";
+		elem_2.style.visibility= "hidden";
+	}
+}
+
+function showFrame(id){
+	document.getElementById(id).style.visibility = "visible";
+}
+
+function handleFrameVisability(first){
+	for (i=0; i < GLOBALFRAMES.length; i++){
+		document.getElementById(GLOBALFRAMES[i]).style.visibility = "hidden";
+	}
+	if (!first){
+		var tab = getHash();
+		if (tab == "quick-reports")
+			showFrame("dynurl");
+		else if (tab == "my-folders")
+			showFrame("my-folders-frame");
+		else if (tab == "my-team-folders")
+			showFrame("dynurlteam");
+		else if (tab == "public-folders")
+			showFrame("public-folders-frame");
+	}
 }
 
 /***************************************************
@@ -152,8 +158,18 @@ function init(){
 	resetSelectElems();
 	getElem("dynurl").style.visibility = "hidden";
 	getElem("dynurlteam").style.visibility = "hidden";
-	
+	handleFrameVisability(true);
 }
+
+function locationHashChanged() {
+ 	showRelevantTab();
+	getElem("forms-tf").style.visibility = "hidden";
+	getElem("forms-qr").style.visibility = "hidden";
+	handleFormsVisability();
+	handleFrameVisability(false);
+ }
+ window.onhashchange = locationHashChanged;
+
 
 /***************************************************
 	CORE functions section
@@ -162,39 +178,40 @@ function init(){
 function handleFormsVisability() {
 	curr_form = getHash();
 	if (curr_form == "quick-reports"){
-		var elem = getElem("forms-qr");
-		if (elem.style.visibility == "hidden"){
-			elem.style.visibility = "visible";
+		if (getElem("forms-qr").style.visibility == "hidden"){
+			getElem("forms-qr").style.visibility = "visible";
 			getElem("reportname01").focus();
 		}
 		else{
-			elem.style.visibility = "hidden";
+			getElem("forms-qr").style.visibility = "hidden";
 		}
 	}
 	else if (curr_form == "my-team-folders"){
-		var elem = getElem("forms-tf");
-		if (elem.style.visibility == "hidden"){
-			elem.style.visibility = "visible";
+		if (getElem("forms-tf").style.visibility == "hidden"){
+			getElem("forms-tf").style.visibility = "visible";
 			getElem("foldername01").focus();
 		}
 		else{
-			elem.style.visibility = "hidden";
+			getElem("forms-tf").style.visibility = "hidden";
 		}
 	}
 }
 
 function showRelevantTab() {
-	for (i=0; i<GLOBALTABS.length; i++)
-		getElem(GLOBALTABS[i]).style.visibility = "hidden";
-	dropdownWrapperVis(false);
 	
-	if (getHash() != "" || getHash() != null){
-		var elem = getElem(getHash());
-		if (elem == "quick-reports" || elem == "my-team-folders"){
-			elem.style.visibility = "visible";
+	for (i=0; i<GLOBALTABS.length; i++){
+		var elem = getElem(GLOBALTABS[i]);
+		elem.style.visibility = "hidden";
+	}
+	dropdownWrapperVis(false);
+	curr_hash = getHash();
+	console.log(curr_hash);
+	if (curr_hash != ""){
+		if (getElem(curr_hash).id == "quick-reports" || getElem(curr_hash).id == "my-team-folders"){
 			dropdownWrapperVis(true);
-			handleFormsVisability();
 		}
+		elem = getElem(curr_hash);
+		elem.style.visibility = "visible";
 	}
 }
 
@@ -212,12 +229,12 @@ UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/con
 
 function dropDownSrcVis(){
 	url = "";
+	getElem("dynurlteam").style.visibility = "hidden";
+	getElem("dynurl").style.visibility = "hidden";
 	if (getHash() == "quick-reports"){
-		getElem("dynurlteam").style.visibility = "hidden";
 		url = "dynurl";
 	}
 	else if(getHash() == "my-team-folders"){
-		getElem("dynurl").style.visibility = "hidden";
 		url = "dynurlteam";
 	}
 	if (url.length){
@@ -275,7 +292,6 @@ function storeAction(){
 	}
 	if (flag == "succeded" || flag == "init"){
 		storeUserData();
-		getElem("forms-qr").style.visibility = "hidden";
 		dropDownSrcVis();
 		resetAllFormsBorders(true);
 	}

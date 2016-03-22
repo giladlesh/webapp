@@ -90,21 +90,22 @@
 			</nav>
 			
 			<div class="tabs-inline center">
-					<ul>
-						<li class="active"><a href="#quick-reports">Quick Reports</a>
-						</li>
-						<li><a href="#my-folders">My Folders</a>
-						</li>
-						<li><a href="#my-team-folders">My Team Folders</a>
-						</li>
-						<li><a href="#public-folders">Public Folders</a>
-						</li>
-					</ul>
-                    <div id="ribbon-wrapper"class="ribbon-wrapper">
-                        <select class="dropdown-box" id="dropdown"></select>
-                        <div id="report-setting" class="button button-settings"></div>
-                        <div id="expand" class="button button-pop" ></div>
-                    <div/>
+				<ul>
+					<li class="active"><a href="#quick-reports">Quick Reports</a>
+					</li>
+					<li><a href="#my-folders">My Folders</a>
+					</li>
+					<li><a href="#my-team-folders">My Team Folders</a>
+					</li>
+					<li><a href="#public-folders">Public Folders</a>
+					</li>
+				</ul>
+                <div id="ribbon-wrapper"class="ribbon-wrapper">
+                    <select class="dropdown-box" id="dropdown"></select>
+                    <div id="report-setting" class="button button-settings"></div>
+                    <div id="expand" class="button button-pop" ></div>
+                </div>
+                </div>
 				<div class="tabs">
 					<div id="quick-reports" class="layout-wrap center">
 						<form id="forms-qr">
@@ -122,25 +123,23 @@
 								<p class="report-name">Report 02</p>
 								<p class="report-form">
 									<label for="reportname02">Name</label>
-									<input id="reportname02" type="text" name="Name"/>
+									<input class="border" id="reportname02" type="text" name="Name"/>
 									<label for="reporturl02">URL</label>
-									<input id="reporturl02" type="url" name="URL"/>
+									<input class="border" id="reporturl02" type="url" name="URL"/>
 								 </p>
 							</li>
 							<li class="report">
 								<p class="report-name">Report 03</p>
 								<p class="report-form">
 									<label for="reportname03">Name</label>
-									<input id="reportname03" type="text" name="Name"/>
+									<input class="border" id="reportname03" type="text" name="Name"/>
 									<label for="reporturl03">URL</label>
-									<input id="reporturl03" type="url" name="URL"/>
+									<input class="border" id="reporturl03" type="url" name="URL"/>
 								</p>
 							</li>
 							</ul>
-							<div class="button-box">
-								<button id="report-save" name="#quick-reports" class="form-button" type="button">Save</button>
-								<button id="report-cancel" name="#quick-reports" class="form-button" type="button">Cancel</button>
-							</div>
+                            <button id="report-cancel" name="#quick-reports" class="cancel-button" type="button">Cancel</button>
+                            <button id="report-save" name="#quick-reports" class="save-button" type="button">Save</button>
 						</form>
 						<div><iframe class= "frame" id="dynurl" src="about:blank"></iframe></div>
 					</div>
@@ -153,7 +152,7 @@
 						<form id="forms-tf">
 							<ul>
 							<li class="report">
-								<p class="report-name">Report 01</p>
+								<p class="report-name">Folder 01</p>
 								<p class="report-form">
 									<label for="foldername01">Name</label>
 									<input class="border" id="foldername01" type="text" name="Name"/>
@@ -162,28 +161,26 @@
 								</p>
 							</li>
 							<li class="report">
-								<p class="report-name">Report 02</p>
+								<p class="report-name">Folder 02</p>
 								<p class="report-form">
 									<label for="foldername02">Name</label>
-									<input id="foldername02" type="text" name="Name"/>
+									<input class="border" id="foldername02" type="text" name="Name"/>
 									<label for="folderurl02">URL</label>
-									<input id="folderurl02" type="url" name="URL"/>
+									<input class="border" id="folderurl02" type="url" name="URL"/>
 								 </p>
 							</li>
 							<li class="report">
-								<p class="report-name">Report 03</p>
+								<p class="report-name">Folder 03</p>
 								<p class="report-form">
 									<label for="foldername03">Name</label>
-									<input id="foldername03" type="text" name="Name"/>
+									<input class="border" id="foldername03" type="text" name="Name"/>
 									<label for="folderurl03">URL</label>
-									<input id="folderurl03" type="url" name="URL"/>
+									<input class="border" id="folderurl03" type="url" name="URL"/>
 								</p>
 							</li>
 							</ul>
-							<div class="button-box">
-								<button id="folder-save" name="#my-team-folders" class="form-button" type="button">Save</button>
-								<button id="folder-cancel" name="#my-team-folders" class="form-button" type="button">Cancel</button>
-							</div>
+                            <button id="folder-cancel" name="#my-team-folders" class="cancel-button" type="button">Cancel</button>
+                            <button id="folder-save" name="#my-team-folders" class="save-button" type="button">Save</button>
 						</form>
 						<div><iframe class= "frame" id="dynurlteam" src="about:blank"></iframe></div>
 					</div>
@@ -192,7 +189,6 @@
 						<iframe class= "frame" id="frame-public-folders" src="http://www.netcraft.co.il"></iframe>
 					</div>
 				</div>
-			</div>
 		</div>
 		
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
