@@ -176,6 +176,7 @@ function isUrl(reportnum) {
 ****************************************************/
 
 function init(){
+	getElem("expand").style.visibility = "hidden";
 	showRelevantTab();
 	inputsAddKeyEvent();
 	if(checkLocalData())
@@ -183,7 +184,7 @@ function init(){
 	getNote();
 	resetSelectElems();
 	handleFrameVisability(true);
-	getElem("expand").style.visibility = "hidden";
+	
 }
 
 function locationHashChanged() {
@@ -230,13 +231,13 @@ function showRelevantTab() {
 		}
 	}
 	dropdownWrapperVis(false);
-	if (GLOBALELEMEXPAND == true){
-		getElem("expand").style.visibility = "visible";
-		GLOBALELEMEXPAND = false;
-	}
 	curr_hash = getHash();
 	if (curr_hash != ""){
 		getElem(curr_hash).style.visibility = "visible";
+		if (GLOBALELEMEXPAND == true){
+			getElem("expand").style.visibility = "visible";
+			GLOBALELEMEXPAND = false;
+		}
 		if (getElem(curr_hash).id == "quick-reports" || getElem(curr_hash).id == "my-team-folders"){
 			dropdownWrapperVis(true);
 		}

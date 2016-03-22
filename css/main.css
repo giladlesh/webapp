@@ -443,6 +443,11 @@ header .layout-wrap > * {
 div.tabs div:not(:target) {display: none}
 div.tabs div:target {display: block}
 
+.forms-style{
+    position: absolute;
+    background-color: whitesmoke;
+}
+
 .report{
     display: inline-flex;
     background: lightgray;
@@ -501,6 +506,10 @@ div.tabs div:target {display: block}
   -moz-box-shadow: gray 0px 0px 5px;
   -webkit-box-shadow: gray 0px 0px 5px;
   box-shadow: gray 0px 0px 5px; }
+
+.frame-margin{
+    margin-top:5%;
+}
 
 /* ==========================================================================
    dropdown
