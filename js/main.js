@@ -66,8 +66,17 @@ function inputsAddKeyEvent(){
 UTILS.addEvent(getElem("dropdown"),"change",dropDownSrcVis);
 
 UTILS.addEvent(getElem("expand"),"click",function(){
-	url = getElem("dropdown").value;
-	window.open(url);
+	var tab = getHash();
+	if (tab == "quick-reports" || tab == "my-team-folders")
+		if (getElem("dropdown").value == ""){
+			console.log(getElem("dropdown").value);
+			url = getElem("dropdown").value;
+			window.open(url);
+		}
+	else{
+		url = getTabFrame(tab).src;
+		window.open(url);
+	}
 })
 
 UTILS.addEvent(getElem("report-save"),"click",storeAction)
@@ -150,10 +159,23 @@ function handleFrameVisability(first){
 	}
 }
 
+function isUrl(reportnum) {
+	var tempurl = getElem(reportnum).value.toLowerCase();
+	if ( -1 == tempurl.indexOf("https://"))
+		if ( -1 == tempurl.indexOf("http://")){
+			tempurl = "http://"+tempurl;
+			getElem(reportnum).value = tempurl;
+		}
+	var urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
+		if (urlRegex.test(tempurl) == false) {
+			return false;
+		}
+	return true;
+}
+
 /***************************************************
 	INIT section
 ****************************************************/
-
 
 function init(){
 	showRelevantTab();
@@ -212,6 +234,7 @@ function showRelevantTab() {
 	curr_hash = getHash();
 	if (curr_hash != ""){
 		getElem(curr_hash).style.visibility = "visible";
+		getElem(curr_hash).className = 
 		if (getElem(curr_hash).id == "quick-reports" || getElem(curr_hash).id == "my-team-folders"){
 			dropdownWrapperVis(true);
 		}
@@ -341,18 +364,4 @@ function loadUserData(){
 	item=JSON.parse(localStorage.getItem("User_storage"));
 	console.log(item);
 	return item;
-}	
-
-function isUrl(reportnum) {
-	var tempurl = getElem(reportnum).value.toLowerCase();
-	if ( -1 == tempurl.indexOf("https://"))
-		if ( -1 == tempurl.indexOf("http://")){
-			tempurl = "http://"+tempurl;
-			getElem(reportnum).value = tempurl;
-		}
-	var urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
-		if (urlRegex.test(tempurl) == false) {
-			return false;
-		}
-	return true;
 }
