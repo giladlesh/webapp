@@ -30,7 +30,7 @@ html {
 }
 
 ::selection {
-    background: #b3d4fc;
+    background: lightgray;
     text-shadow: none;
 }
 
@@ -215,8 +215,9 @@ header .layout-wrap > * {
 }
 
 .cancel-button{
-    margin-left:77.5%;
+    margin-left:73.6%;
     height: 2.5em;
+    width: 6em;
     background:white;
     color:black;
 }
@@ -387,7 +388,8 @@ header .layout-wrap > * {
 }
 
 .tabs-inline li {
-	background: lightgray;
+	background: #666663 ;
+    color: white;
 	font-size: 20px;
 	vertical-align: text-top;
 	text-align: center;
@@ -396,6 +398,39 @@ header .layout-wrap > * {
 	display: inline-block;
 }
 
+.tabs-inline > ul > li:hover{
+    background: lightgray;
+}
+
+.tabs-inlineselected li {
+	background: lightgray;
+    color:black;
+	font-size: 20px;
+	vertical-align: text-top;
+	text-align: center;
+	padding: 1%;
+	width: 23.68%;
+	display: inline-block;
+}
+
+.tabs-inline li a {
+    text-decoration: none;
+}
+.tabs-inline li a:link{
+    color: white;   
+}
+
+.tabs-inline li a:visited{
+    color: white;   
+}
+
+.tabs-inline li a:hover{
+    color: black;   
+}
+
+.tabs-inline li a:active{
+    color: black;   
+}
 .tabs a{
 	color: #FFFFFF;
 }
@@ -429,6 +464,11 @@ div.tabs div:target {display: block}
     margin-left: 6em;
     color: black !important;
 }
+
+.margin-urlborder{
+    margin-left: 1.8em;
+}
+
 .active{
 	color: #000000;
 }
