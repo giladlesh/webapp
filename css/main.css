@@ -182,6 +182,28 @@ header .layout-wrap > * {
 	margin: auto;
 }
    
+.dropdown-box{
+    width: 10em;
+}
+
+.button{
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.button-pop{
+    background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/expand.png?raw=true');
+    margin-left: 55em;
+    margin-top: -1.3em;
+    background-repeat: no-repeat;
+}
+
+.button-settings{
+    background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/settings.png?raw=true');
+    margin-left: 57.2em;
+    margin-top: -1.5em;
+}
+   
 .nav-section-inline {
 	width: 100%;
     background-color: lightgray;
@@ -256,7 +278,7 @@ header .layout-wrap > * {
 }
 .arrow {
 	position: absolute;
-	margin-top: -1.8em;
+	margin-top: -2em;
     margin-right:0.5em; 
 	float: top;
 	right: 1em;
@@ -280,7 +302,6 @@ header .layout-wrap > * {
 	opacity: 0;
 	visibility: hidden; 
 	transition: all 0.5s ease;
-	line-height: 25px;
 	padding: 10px;
 	background-color: white;
 	list-style: none;
@@ -310,11 +331,17 @@ header .layout-wrap > * {
 	font-size: 18px;
 }
 
-.dropdown-wrapper{
-    width: 100%;
-    left: 0;
+.ribbon-wrapper{
+    width: 95%;
+    height: 3em !important;
+    padding: 0em !important;
+    color: gray !important;
+    background-color: gray !important;
+    margin-inline-start: 0em !important;
+    margin-inline-end: 0em !important;
+    left: 3em;
     right: 0;
-    position: absolute !important; 
+    position: relative !important; 
     display: inline-block;
 }
 
@@ -325,11 +352,11 @@ header .layout-wrap > * {
 .tabs {
 	position: relative;
 }
-.tabs:first-child{
-    margin-left: -2.5em !important;
+.tabs li:first-child{
+    margin-left: -2.05em !important;
 }
 
-.tabs:last-child{
+.tabs li:last-child{
     margin-right: -7.2em !important;
 }
 .tabs > div{
@@ -361,6 +388,10 @@ header .layout-wrap > * {
 .tabs a:visited{
 	color: #FFFFFF;
 }
+
+div.tabs div:not(:target) {display: none}
+div.tabs div:target {display: block}
+
 .active{
 	color: #000000;
 }

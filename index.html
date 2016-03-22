@@ -90,23 +90,23 @@
 			</nav>
 			
 			<div class="tabs-inline center">
-				<div class="tabs">
 					<ul>
 						<li class="active"><a href="#quick-reports">Quick Reports</a>
 						</li>
-						<li><a href="#fmy-folders">My Folders</a>
+						<li><a href="#my-folders">My Folders</a>
 						</li>
 						<li><a href="#my-team-folders">My Team Folders</a>
 						</li>
 						<li><a href="#public-folders">Public Folders</a>
 						</li>
 					</ul>
-                    <div id="dropdown-wrapper"class="dropdown-wrapper">
-                        <select class="select-box" id="dropdown"></select>
-                        <img src="../webapp/Images/icons/settings.png" id="report-setting" align=right></img>
-                        <img src="../webapp/Images/icons/expand.png" id="expand" align=right></img>
+                    <div id="ribbon-wrapper"class="ribbon-wrapper">
+                        <select class="dropdown-box" id="dropdown"></select>
+                        <div id="report-setting" class="button button-settings"></div>
+                        <div id="expand" class="button button-pop" ></div>
                     <div/>
-					<div id="quick-reports">
+				<div class="tabs">
+					<div id="quick-reports" class="layout-wrap center">
 						<form id="forms-qr">
 							<ul>
 							<li class="report">
@@ -145,11 +145,11 @@
 						<div><iframe class= "frame" id="dynurl" src="about:blank"></iframe></div>
 					</div>
 
-					<div id="fmy-folders">
-						<iframe class= "frame" id="fmy-folders" src="http://www.ptc.com"></iframe>
+					<div id="my-folders" class="layout-wrap center">
+						<iframe class= "frame" id="my-folders" src="http://www.ptc.com"></iframe>
 					</div>
 
-					<div id="my-team-folders">
+					<div id="my-team-folders"  class="layout-wrap center">
 						<form id="forms-tf">
 							<ul>
 							<li class="report">
@@ -188,7 +188,7 @@
 						<div><iframe class= "frame" id="dynurlteam" src="about:blank"></iframe></div>
 					</div>
 
-					<div id="public-folders">
+					<div id="public-folders"  class="layout-wrap center">
 						<iframe class= "frame" id="frame-public-folders" src="http://www.netcraft.co.il"></iframe>
 					</div>
 				</div>

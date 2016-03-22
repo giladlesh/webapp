@@ -31,7 +31,7 @@ var GLOBALTFINPUTS =["foldername01","foldername02","foldername03","folderurl01",
 
 var GLOBALQRINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
 
-var GLOBALTABS = ["quick-reports","fmy-folders","my-team-folders","public-folders"]
+var GLOBALTABS = ["quick-reports","my-folders","my-team-folders","public-folders"]
 
 
 
@@ -91,13 +91,12 @@ function resetSelectElems(){
 		tag.remove(tag.length-1);	
 	}
 }
-
+/*
 function locationHashChanged() {
 	console.log("Hello")
 	showRelevantTab();
-}
+}*/
 window.onhashchange = locationHashChanged();
-
 
 function dropdownVisibility(vis) {
 	if (vis == true)
@@ -115,8 +114,16 @@ function getHash() {
 function resetAllFormsBorders(temp){
 	if (temp){
 		for (i=0; i<GLOBALQRINPUTS.length; i++)
-		getElem(GLOBALQRINPUTS[i]).className = "border";
+			getElem(GLOBALQRINPUTS[i]).className = "border";
 	}
+}
+
+function resetAllTabsVis(tab){
+	for (i=0; i<.length; i++)
+		getElem(GLOBALTABS[i]).className = "z-index-low";
+	}
+	if (tabs != null)
+		getElem(tab).className = "z-index-high";
 }
 
 function firstToUpperCase( str ) {
