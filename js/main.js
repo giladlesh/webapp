@@ -35,7 +35,11 @@ var GLOBALTABS =["quick-reports","my-folders","my-team-folders","public-folders"
 
 var GLOBALFRAMES =["dynurl","my-folders-frame","dynurlteam","frame-public-folders"];
 
-GLOBALELEMEXPAND = true;
+var GLOBALELEMEXPAND = true;
+
+var GLOBALOPTIONQR;
+
+var GLOBALOPTIONFT;
 
 /***************************************************
 	EVENTS section
@@ -43,7 +47,21 @@ GLOBALELEMEXPAND = true;
 
 UTILS.addEvent(window,"DOMContentLoaded",init)
 
-UTILS.addEvent(getElem("report-setting"),"click",handleFormsVisability)
+UTILS.addEvent(getElem("report-setting"),"click",function(){
+	var tab = getHash();
+	if (tab == "quick-reports"){
+		if (getElem("forms-qr").style.visibility == "hidden")
+			getElem("forms-qr").style.visibility = "visible";
+		else
+			getElem("forms-qr").style.visibility = "hidden";
+	}
+	else{
+		if (getElem("forms-tf").style.visibility == "hidden")
+			getElem("forms-tf").style.visibility = "visible";
+		else
+			getElem("forms-tf").style.visibility = "hidden";
+	}
+});
 
 function inputsAddKeyEvent(){
 	for (i=0; i<GLOBALQRINPUTS.length; i++){
@@ -80,8 +98,13 @@ UTILS.addEvent(getElem("expand"),"click",function(){
 
 UTILS.addEvent(getElem("report-save"),"click",storeAction)
 
+UTILS.addEvent(getElem("folder-save"),"click",storeAction)
+
 UTILS.addEvent(getElem("report-cancel"),"click",function(){
 	getElem("forms-qr").style.visibility = "hidden";
+})
+UTILS.addEvent(getElem("folder-cancel"),"click",function(){
+	getElem("forms-tf").style.visibility = "hidden";
 })
 
 
@@ -107,10 +130,19 @@ function getHash() {
 	return str;
 }
 
-function resetAllFormsBorders(temp){
-	if (temp)
-		for (i=0; i<GLOBALQRINPUTS.length; i++)
-			getElem(GLOBALQRINPUTS[i]).className = "border";
+function resetAllFormsBorders(temp,tab){
+	if (temp){
+		if (tab == "quick-reports"){
+			for (i=0; i<GLOBALQRINPUTS.length; i++){
+				getElem(GLOBALQRINPUTS[i]).className = "border";
+			}
+		}
+		else{
+			for (i=0; i<GLOBALTFINPUTS.length; i++){
+				getElem(GLOBALTFINPUTS[i]).className = "border";
+			}
+		}
+	}
 }
 
 function firstToUpperCase(str) {
@@ -183,14 +215,13 @@ function init(){
 		GLOBALDATA = loadUserData();
 	getNote();
 	resetSelectElems();
+	if (getHash() == "quick-reports" || getHash() == "my-team-folders")
+		handleFormsVisability();
 	handleFrameVisability(true);
-	
 }
 
 function locationHashChanged() {
  	showRelevantTab();
-	getElem("quick-reports").style.visibility = "hidden";
-	getElem("my-team-folders").style.visibility = "hidden";
 	handleFormsVisability();
 	handleFrameVisability(false);
  }
@@ -208,22 +239,20 @@ function handleFormsVisability() {
 			getElem("forms-qr").style.visibility = "visible";
 			getElem("reportname01").focus();
 		}
-		else{
-			getElem("forms-qr").style.visibility = "hidden";
-		}
 	}
 	else if (curr_form == "my-team-folders"){
 		if (getElem("forms-tf").style.visibility == "hidden"){
 			getElem("forms-tf").style.visibility = "visible";
 			getElem("foldername01").focus();
 		}
-		else{
-			getElem("forms-tf").style.visibility = "hidden";
-		}
 	}
 }
 
 function showRelevantTab() {
+	resetSelectElems();
+	getElem("forms-qr").style.visibility = "hidden";
+	getElem("forms-tf").style.visibility = "hidden";
+	
 	for (i=0; i<GLOBALTABS.length; i++){
 		var elem = document.getElementById(GLOBALTABS[i]);
 		if (elem && elem.id != undefined && elem.id != null && elem.id != ""){
@@ -234,14 +263,27 @@ function showRelevantTab() {
 	curr_hash = getHash();
 	if (curr_hash != ""){
 		getElem(curr_hash).style.visibility = "visible";
-		if (GLOBALELEMEXPAND == true){
+		getElem("keytab").style.height = "37em";
+		getElem("ribbon-wrapper").style.background = "lightgray";
+		if (GLOBALELEMEXPAND == true || getElem("expand").style.visibility == "hidden"){
 			getElem("expand").style.visibility = "visible";
 			GLOBALELEMEXPAND = false;
 		}
 		if (getElem(curr_hash).id == "quick-reports" || getElem(curr_hash).id == "my-team-folders"){
 			dropdownWrapperVis(true);
+			var second = document.getElementById('dropdown');
+			if (getElem(curr_hash).id == "quick-reports")
+				second.innerHTML = GLOBALOPTIONQR;
+			else
+				second.innerHTML = GLOBALOPTIONFT;
 		}
 	}
+	else{
+		getElem("keytab").style.height = "0";
+		getElem("ribbon-wrapper").style.background = "transparent";
+		getElem("expand").style.visibility = "hidden";
+	}
+	return curr_hash;
 }
 
 function getNote(){
@@ -309,22 +351,44 @@ function createElemDropdown(name,url){
     getElem("dropdown").appendChild(z);
 }
 
+
 function storeAction(){
 	resetSelectElems();
 	flag = "";
-	flag = checkForms("reportname01","reporturl01");
-	if (flag == "succeded"){
-		flag = checkForms("reportname02","reporturl02");
+	var tab = getHash();
+	if (tab == "quick-reports"){
+		flag = checkForms("reportname01","reporturl01");
+		if (flag == "succeded"){
+			flag = checkForms("reportname02","reporturl02");
+		}
+		if (flag == "succeded"){
+			flag = checkForms("reportname03","reporturl03");
+		}
 	}
-	if (flag == "succeded"){
-		flag = checkForms("reportname03","reporturl03");
+	else{
+		flag = checkForms("foldername01","folderurl01");
+		if (flag == "succeded"){
+			flag = checkForms("foldername02","folderurl02");
+		}
+		if (flag == "succeded"){
+			flag = checkForms("foldername03","folderurl03");
+		}
 	}
 	if (flag == "succeded" || flag == "init"){
 		storeUserData();
 		dropDownSrcVis();
-		resetAllFormsBorders(true);
-		getElem("quick-reports").style.visibility = "hidden";
-		getElem("dynurl").style.visibility = "visible";
+		resetAllFormsBorders(true,tab);
+		var first = document.getElementById("dropdown");
+		if (tab == "quick-reports"){
+			getElem("forms-qr").style.visibility = "hidden";
+			getElem("dynurl").style.visibility = "visible";
+			GLOBALOPTIONQR = first.innerHTML;
+		}
+		if (tab == "my-team-folders"){
+			getElem("forms-tf").style.visibility = "hidden";
+			getElem("dynurlteam").style.visibility = "visible";
+			GLOBALOPTIONFT = first.innerHTML;
+		}
 	}
 }
 
