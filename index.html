@@ -23,10 +23,7 @@
 		<header>
 			<div class="layout-wrap">
 				<a href="#" class="logo"><p>netcraft</p><img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
-				<form id="search" class="search-box" method="get" target="_blank" action="https://www.google.com/search">
-					<input placeholder="google search" type="text" name="q" size="31" value="">
-				</form>
-					
+				<input class="search-box" id="search" type="text"/>
 			</div>
 		</header>
 		<div class="page-body layout-wrap">
@@ -92,13 +89,13 @@
 			
 			<div class="tabs-inline center">
 				<ul>
-					<li><a href="#quick-reports">Quick Reports</a>
+					<li id="quick-reports-label"><a id="quick-reports-ref" href="#quick-reports">Quick Reports</a>
 					</li>
-					<li><a href="#my-folders">My Folders</a>
+					<li id="my-folders-label"><a id="my-folders-ref" href="#my-folders">My Folders</a>
 					</li>
-					<li><a href="#my-team-folders">My Team Folders</a>
+					<li id="my-team-folders-label"><a id="my-team-folders-ref" href="#my-team-folders">My Team Folders</a>
 					</li>
-					<li><a href="#public-folders">Public Folders</a>
+					<li id="public-folders-label"><a id="public-folders-ref" href="#public-folders">Public Folders</a>
 					</li>
 				</ul>
                 <div id="ribbon-wrapper"class="ribbon-wrapper">
