@@ -1,50 +1,56 @@
 /***************************************************
 	GLOBAL VARS section
 ****************************************************/
+function initGlobals(){
+	GLOBALDATA = {
+			"quick_reports":[
+				{
+					"Name":null,"URL":null
+				},
+				{
+					"Name":null,"URL":null
+				}, 
+				{
+					"Name":null,"URL":null
+				}
+			],
+			"my_folders":[
+				{
+					"Name":null,"URL":null
+				},
+				{
+					"Name":null,"URL":null
+				}, 
+				{
+					"Name":null,"URL":null
+				}
+			]
+	};
 
-var GLOBALDATA = {
-		"quick_reports":[
-			{
-				"Name":null,"URL":null
-			},
-			{
-				"Name":null,"URL":null
-			}, 
-			{
-				"Name":null,"URL":null
-			}
-		],
-		"my_folders":[
-			{
-				"Name":null,"URL":null
-			},
-			{
-				"Name":null,"URL":null
-			}, 
-			{
-				"Name":null,"URL":null
-			}
-		]
-};
+	GLOBALTFINPUTS =["foldername01","foldername02","foldername03","folderurl01", "folderurl02","folderurl03"];
 
-var GLOBALTFINPUTS =["foldername01","foldername02","foldername03","folderurl01", "folderurl02","folderurl03"];
+	GLOBALQRINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
 
-var GLOBALQRINPUTS =["reportname01", "reportname02","reportname03","reporturl01", "reporturl02","reporturl03"];
+	GLOBALTABS =["quick-reports","my-folders","my-team-folders","public-folders"];
 
-var GLOBALTABS =["quick-reports","my-folders","my-team-folders","public-folders"];
+	GLOBALFRAMES =["dynurl","my-folders-frame","dynurlteam","frame-public-folders"];
 
-var GLOBALFRAMES =["dynurl","my-folders-frame","dynurlteam","frame-public-folders"];
+	GLOBALELEMEXPAND = true;
 
-var GLOBALELEMEXPAND = true;
+	GLOBALOPTIONQR = localStorage.getItem("User_opt_qr_storage") != undefined ? localStorage.getItem("User_opt_qr_storage") : null;
 
-var GLOBALOPTIONQR;
+	GLOBALOPTIONFT = localStorage.getItem("User_opt_ft_storage") != undefined ? localStorage.getItem("User_opt_ft_storage") : null;
 
-var GLOBALOPTIONFT;
-
-var GLOBALLASTTAB = oneOfTabs(getHash()) == true ? getHash(): "quick-reports";
-
-var GLOBALINDEX = -1;
-
+	GLOBALLASTTAB = oneOfTabs(localStorage.getItem("User_tab_storage")) == true ? localStorage.getItem("User_tab_storage"): null;
+	
+	var index = JSON.parse(localStorage.getItem("User_last_opt")).QR;
+	GLOBALINDEXQR = index != -1 ? index : -1;
+	
+	index = JSON.parse(localStorage.getItem("User_last_opt")).TF;
+	GLOBALINDEXTF = index != -1 ? index : -1;
+	
+	GLOBALFORMSSEARCH = false;
+}
 /***************************************************
 	EVENTS section
 ****************************************************/
@@ -52,7 +58,7 @@ var GLOBALINDEX = -1;
 UTILS.addEvent(window,"DOMContentLoaded",init)
 
 UTILS.addEvent(getElem("report-setting"),"click",function(){
-	tab = getHash();
+	var tab = getHash();
 	if (tab == "quick-reports"){
 		if (getElem("forms-quick").style.visibility == "hidden")
 			setElemStyleVis("forms-quick","visible");
@@ -75,7 +81,7 @@ function inputsAddKeyEvent(){
 UTILS.addEvent(getElem("dropdown"),"change",dropDownSrcVis);
 
 UTILS.addEvent(getElem("expand"),"click",function(){
-	tab = getHash();
+	var tab = getHash();
 	if (tab == "quick-reports" || tab == "my-team-folders"){
 		if (getElem("dropdown").value != ""){
 			window.open(getElem("dropdown").value);
@@ -112,6 +118,8 @@ function getElem(elem){
 }
 
 function oneOfTabs(tab){
+	if (tab == null)
+		return false;
 	for (i=0; i<GLOBALTABS.length;i++)
 		if (tab == GLOBALTABS[i])
 			return true;
@@ -119,15 +127,13 @@ function oneOfTabs(tab){
 }
 
 function resetDropDownElems(){
-	tag = getElem("dropdown");
-	length = tag.options.length;
-	for (i = 0; i < length; i++) {
-		tag.remove(tag.length-1);	
+	while (getElem("dropdown").options.length){
+		getElem("dropdown").remove(0);
 	}
 }
 
 function getHash() {
-	str = window.location.hash;
+	var str = window.location.hash;
     str = str.substr(1);
 	return str;
 }
@@ -150,6 +156,12 @@ function firstToUpperCase(str) {
 
 function setElemStyleVis(elem,mode){
 	getElem(elem).style.visibility = mode;
+	if (elem == "forms-quick" || elem == "forms-team"){
+		if (mode == "visible")
+			getElem("report-setting").style.backgroundColor = "whitesmoke";
+		else
+			getElem("report-setting").style.backgroundColor = "";
+	}
 }
 
 function dropdownWrapperVis(vis){
@@ -193,22 +205,20 @@ function showFrame(id){
 	setElemStyleVis(id,"visible");
 }
 
-function handleFrameVisability(first){
-	if (!first){
-		fram = getTabFrame(getHash());
-		if (fram != false)
-			showFrame(fram);
-	}
+function handleFrameVisability(){
+	var fram = getTabFrame(getHash());
+	if (fram != false)
+		showFrame(fram);
 }
 
 function isUrl(reportnum) {
-	tempurl = getElem(reportnum).value.toLowerCase();
+	var tempurl = getElem(reportnum).value.toLowerCase();
 	if ( -1 == tempurl.indexOf("https://"))
 		if ( -1 == tempurl.indexOf("http://")){
 			tempurl = "http://"+tempurl;
 			getElem(reportnum).value = tempurl;
 		}
-	urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
+	var urlRegex = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
 		if (urlRegex.test(tempurl) == false) {
 			return false;
 		}
@@ -216,16 +226,16 @@ function isUrl(reportnum) {
 }
 
 function searchReport(field,json){
-	found = false;
-	ret = "";
-	for (i=0 ; i < json.length && !found; i++){
-		name = (json[i]["Name"]).toLowerCase();
+	var found = false;
+	var ret = "";
+	for (i=0 ; i < json.length && json[i]["Name"] != null && !found; i++){
+		var name = (json[i]["Name"]).toLowerCase();
 		if (name.indexOf(field) != -1){
 			found = true;
 			ret = json[i]["Name"];
 		}
 	}
-	return [found,i-1,0,ret];
+	return ([found,i-1,"",ret]);
 }
 
 /***************************************************
@@ -233,43 +243,41 @@ function searchReport(field,json){
 ****************************************************/
 
 function init(){
+	initGlobals();
+	resetDropDownElems();
 	setElemStyleVis("expand","hidden");
 	showRelevantTab();
 	inputsAddKeyEvent();
 	if(checkLocalData()){
 		GLOBALDATA = loadUserData();
 		setDataForForms();
-		GLOBALOPTIONFT = localStorage.getItem("User_opt_ft_storage");
-		GLOBALOPTIONQR = localStorage.getItem("User_opt_qr_storage");
 	}
 	getNote();
-	resetDropDownElems();
-	hash = getHash();
+	var hash = getHash();
 	if (hash == "quick-reports" || hash == "my-team-folders")
 		handleFormsVisability();
-	handleFrameVisability(true);
-	if (oneOfTabs(localStorage.getItem("User_tab_storage"))){//check by data!!!!
-		GLOBALLASTTAB = localStorage.getItem("User_tab_storage");
+	handleFrameVisability();
+	if (oneOfTabs(GLOBALLASTTAB)){
 		getElem(GLOBALLASTTAB+"-ref").click();
-		GLOBALINDEX = 0;
 		if (GLOBALLASTTAB == "quick-reports"){
-			choosenOptAction(GLOBALOPTIONQR,"dynurl","forms-quick");
+			choosenOptAction(GLOBALOPTIONQR,"dynurl","forms-quick",GLOBALINDEXQR);
 		}
 		else if (GLOBALLASTTAB == "my-team-folders"){
-			choosenOptAction(GLOBALOPTIONFT,"dynurlteam","forms-team");
+			choosenOptAction(GLOBALOPTIONFT,"dynurlteam","forms-team",GLOBALINDEXTF);
 		}
 	}
 }
 
 function locationHashChanged() {
  	showRelevantTab();
-	handleFormsVisability();
-	handleFrameVisability(false);
-	hash = getHash();
-	if (oneOfTabs(hash)){
-		GLOBALLASTTAB = hash;
-		localStorage.setItem("User_tab_storage", GLOBALLASTTAB);
+	if (!GLOBALFORMSSEARCH){
+		GLOBALFORMSSEARCH = false;
+		handleFormsVisability();
 	}
+	handleFrameVisability();
+	var hash = getHash();
+	GLOBALLASTTAB = hash;
+	localStorage.setItem("User_tab_storage", GLOBALLASTTAB);
  }
  window.onhashchange = locationHashChanged;
 
@@ -279,47 +287,60 @@ function locationHashChanged() {
 
 function searchBox() {
 	UTILS.removeEvent(getElem("note"),"click",searchGoogle);
-	field = (getElem("search").value).toLowerCase();
+	var field = (getElem("search").value).toLowerCase();
 	if (field == ""){
 		getNote();
 		return;
 	}
-	var ret;
-	retA = searchReport(field,GLOBALDATA.quick_reports);
-	retB = searchReport(field,GLOBALDATA.my_folders);
+	var ret = [false,-1,-1,""];
+	var retA = searchReport(field,GLOBALDATA.quick_reports);
+	var retB = searchReport(field,GLOBALDATA.my_folders);
 	if (retA[0] == true){
 		ret = retA;
-		ret[2] = 1;
+		ret[2] = "quick-reports";
+		GLOBALINDEXQR = ret[1];
 	}
-	else{
+	else if (retB[0] == true){
 		ret = retB;
+		GLOBALINDEXTF = ret[1];
+		ret[2] = "my-team-folders";
 	}
 	if (ret[0]){
+		GLOBALFORMSSEARCH = true;
 		getElem("note").innerHTML  = "Report name "+"<em><strong><ins>"+firstToUpperCase(ret[3])+"</em></strong></ins>"+" has been found";
-		GLOBALINDEX = ret[1];
-		if (ret[2]==1)
-			getElem("quick-reports-ref").click(); // case when we are in same tab!!!
-		else
-			getElem("my-team-folders-ref").click();
+		if (ret[2]=="quick-reports"){
+			if (getHash() == "quick-reports"){
+				choosenOptAction(GLOBALOPTIONQR,"dynurl","forms-quick",GLOBALINDEXQR);
+			}
+			else
+				getElem("quick-reports-ref").click();
+		}
+		else{
+			if (getHash() == "my-team-folders"){
+				choosenOptAction(GLOBALOPTIONFT,"dynurlteam","forms-team",GLOBALINDEXTF);
+			}
+			else
+				getElem("my-team-folders-ref").click();
+		}
 	}
 	else{
-		getElem("note").innerHTML  = "Report name "+"<em><strong><ins>"+firstToUpperCase(field)+"</em></strong></ins>"+" has not been found in DB, Click to search Google";
+		getElem("note").innerHTML  = "Report name "+"<em><strong><ins>"+firstToUpperCase(field)+"</em></strong></ins>"+" has not been found in forms, Click to search Google";
 		UTILS.addEvent(getElem("note"),"click",searchGoogle);
 	}
 }
 
 function searchGoogle(){
-	window.open("https://www.google.com/search?q="+field);
+	window.open("https://www.google.com/search?q="+(getElem("search").value).toLowerCase());
 }
 
 function changeTabClass(tab){
-	if (GLOBALLASTTAB != "")
+	if (oneOfTabs(GLOBALLASTTAB) && GLOBALLASTTAB != tab)
 		getElem(GLOBALLASTTAB+"-label").classList.remove("selected");
 	getElem(tab+"-label").className = ("selected");
 }
 
 function handleFormsVisability() {
-	hash = getHash();
+	var hash = getHash();
 	if (hash == "quick-reports"){
 		if (getElem("forms-quick").style.visibility == "hidden"){
 			setElemStyleVis("forms-quick","visible");
@@ -334,12 +355,12 @@ function handleFormsVisability() {
 	}
 }
 	
-function choosenOptAction(opts,fram,forminput){
-	dropdown = getElem("dropdown");
+function choosenOptAction(opts,fram,forminput,index){
+	var dropdown = getElem("dropdown");
 	dropdown.innerHTML = opts;
-	if (GLOBALINDEX != -1){
-		dropdown.selectedIndex = GLOBALINDEX;
-		getElem(fram).src = dropdown.options[GLOBALINDEX].value;
+	if (index != -1){
+		dropdown.selectedIndex = index;
+		getElem(fram).src = dropdown.options[index]["value"];
 		setElemStyleVis(forminput,"hidden");
 	}
 }
@@ -348,15 +369,14 @@ function showRelevantTab() {
 	resetDropDownElems();
 	setElemStyleVis("forms-quick","hidden");
 	setElemStyleVis("forms-team","hidden");
-	
 	for (i=0; i<GLOBALTABS.length; i++){
-		elem = document.getElementById(GLOBALTABS[i]);
+		var elem = document.getElementById(GLOBALTABS[i]);
 		if (elem && elem.id != undefined && elem.id != null && elem.id != ""){
 			elem.style.visibility = "hidden";
 		}
 	}
 	dropdownWrapperVis(false);
-	hash = getHash();
+	var hash = getHash();
 	if (oneOfTabs(hash)){
 		changeTabClass(hash);
 		setElemStyleVis(hash,"visible");
@@ -369,16 +389,17 @@ function showRelevantTab() {
 		if (getElem(hash).id == "quick-reports" || getElem(hash).id == "my-team-folders"){
 			dropdownWrapperVis(true);
 			if (getElem(hash).id == "quick-reports")
-				choosenOptAction(GLOBALOPTIONQR,"dynurl","forms-quick");
+				choosenOptAction(GLOBALOPTIONQR,"dynurl","forms-quick",GLOBALINDEXQR);
 			else
-				choosenOptAction(GLOBALOPTIONFT,"dynurlteam","forms-team");
+				choosenOptAction(GLOBALOPTIONFT,"dynurlteam","forms-team",GLOBALINDEXTF);
 		}
 	}
 	else{
 		getElem("keytab").style.height = "0";
 		getElem("ribbon-wrapper").style.background = "transparent";
 		setElemStyleVis("expand","hidden");
-		getElem(GLOBALLASTTAB+"-label").classList.remove("selected");
+		if (oneOfTabs(GLOBALLASTTAB))
+			getElem(GLOBALLASTTAB+"-label").classList.remove("selected");
 	}
 }
 
@@ -390,37 +411,42 @@ UTILS.ajax('https://raw.githubusercontent.com/giladlesh/webapp/gh-pages/data/con
 	});
 }
 
-function dropDownSrcVis(){
-	url = "";
-	tabforms = "";
+function dropDownSrcVis(store){
+	var url = "";
+	var tabforms = "";
 	setElemStyleVis("dynurlteam","hidden");
 	setElemStyleVis("dynurl","hidden");
-	hash = getHash();
+	var hash = getHash();
 	if (hash == "quick-reports"){
 		url = "dynurl";
 		tabforms = "forms-quick";
+		if (store)
+			GLOBALINDEXQR = getElem("dropdown").selectedIndex;
 	}
 	else if(hash == "my-team-folders"){
 		url = "dynurlteam";
 		tabforms = "forms-team";
+		if (store)
+			GLOBALINDEXTF = getElem("dropdown").selectedIndex;
 	}
 	if (url.length){
 		getElem(url).src = getElem("dropdown").value;
 		setElemStyleVis(url,"visible");
 		setElemStyleVis(tabforms,"hidden")
 	}
+	localStorage.setItem("User_last_opt", JSON.stringify({"QR":GLOBALINDEXQR,"TF":GLOBALINDEXTF}));
 }
 
 function checkLocalData(){
-	str = loadUserData();
-	if ((str.quick_reports[0].Name == null || str.quick_reports[0].Name == "") &&
+	var str = loadUserData();
+	if ((str == null || str.quick_reports[0].Name == null || str.quick_reports[0].Name == "") &&
 			(str.my_folders[0].Name == null || str.my_folders[0].Name == ""))
 		return false;
 	return true;
 }
 
 function checkForms(name,url){
-	flag = "init";
+	var flag = "init";
 	if (getElem(name).value != ""
 		&& isUrl(url)){
 			createElemDropdown(getElem(name).value,getElem(url).value);
@@ -456,42 +482,45 @@ function storeToData(data,i,name,url){
 	getElem(url).value = null;
 }
 
-function activateFormFrame(fram,global,storage,frms){
-	elem = document.getElementById("dropdown");
+function activateFormFrame(fram,global,storage,frms,index){
 	setElemStyleVis(fram,"visible");
-	global = elem.innerHTML;
+	global = document.getElementById("dropdown").innerHTML;
 	localStorage.setItem(storage,global);
-	choosenOptAction(global,fram,frms);
+	choosenOptAction(global,fram,frms,index);
 }
 function storeAction(){
 	resetDropDownElems();
-	tab = getHash();
-	index = 0;
+	var tab = getHash();
+	var index = 0;
 	if (tab == "quick-reports"){
-		for (i=1; i<=GLOBALDATA.quick_reports.length; i++){
-			flag = checkForms("reportname0"+i,"reporturl0"+i);
+		for (i = 1; i <= GLOBALDATA.quick_reports.length; i++){
+			var flag = checkForms("reportname0"+i,"reporturl0"+i);
 			if (flag == "succeded")
 				storeToData(GLOBALDATA.quick_reports,index++,"reportname0"+i,"reporturl0"+i);
+			GLOBALINDEXQR = index-1;
 		}
+		GLOBALOPTIONQR = getElem("dropdown").innerHTML;
 	}
 	else {
-		for (i=1; i<=GLOBALDATA.my_folders.length; i++){
-			flag = checkForms("foldername0"+i,"folderurl0"+i);
+		for (i = 1; i <= GLOBALDATA.my_folders.length; i++){
+			var flag = checkForms("foldername0"+i,"folderurl0"+i);
 			if (flag == "succeded")
 				storeToData(GLOBALDATA.my_folders,index++,"foldername0"+i,"folderurl0"+i);
+			GLOBALINDEXTF = index-1;
 		}
+		GLOBALOPTIONFT = getElem("dropdown").innerHTML;
 	}
 	localStorage.setItem("User_forms_storage", JSON.stringify(GLOBALDATA));
+	localStorage.setItem("User_last_opt", JSON.stringify({"QR":GLOBALINDEXQR,"TF":GLOBALINDEXTF}));
 	GLOBALDATA = loadUserData();
 	setDataForForms();
-	GLOBALINDEX = --index;
 	if (index >= 0){
-		dropDownSrcVis();
+		dropDownSrcVis(false);
 		resetAllFormsBorders(tab);
 		if (tab == "quick-reports")
-			activateFormFrame("dynurl",GLOBALOPTIONQR,"User_opt_qr_storage","forms-quick");
+			activateFormFrame("dynurl",GLOBALOPTIONQR,"User_opt_qr_storage","forms-quick",GLOBALINDEXQR);
 		else if (tab == "my-team-folders")
-			activateFormFrame("dynurlteam",GLOBALOPTIONFT,"User_opt_ft_storage","forms-team");
+			activateFormFrame("dynurlteam",GLOBALOPTIONFT,"User_opt_ft_storage","forms-team",GLOBALINDEXTF);
 	}
 }
 

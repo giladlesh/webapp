@@ -172,7 +172,7 @@ header .layout-wrap > * {
 }
 
 .page-body > div{
-	background-color: gray;
+	background-color: #767b7a;
 	margin:auto;
 }
 
@@ -193,31 +193,33 @@ header .layout-wrap > * {
 }
    
 .dropdown-box{
-    width: 10em;
+    width: 16%;
     margin-top: 1em;
-    margin-left: 2.4em;
+    margin-left: 3.3%;
 }
 
 .button{
-    height: 1.5em;
-    width: 1.5em;
+    height: 2em;
+    width: 3.2%;
 }
 
 .button-pop{
     background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/expand.png?raw=true');
     margin-left: 89%;
-    margin-top: -1.3em;
+    margin-top: -1.5em;
     background-repeat: no-repeat;
 }
 
 .button-settings{
     background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/settings.png?raw=true');
-    margin-left: 93%;
-    margin-top: -1.5em;
+    margin-left: 93.3%;
+    margin-top: -1.7em;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .save-button{
-    width:6em;
+    width:7.4%;
     height:2.5em;
     margin-bottom: 1.5%;
     background:black;   
@@ -225,9 +227,9 @@ header .layout-wrap > * {
 }
 
 .cancel-button{
-    margin-left:73.6%;
+    margin-left:80%;
     height: 2.5em;
-    width: 6em;
+    width: 7.4%;
     background:white;
     color:black;
 }
@@ -251,9 +253,9 @@ header .layout-wrap > * {
 	padding-top:1%;
 	width: 25%;
 	display: inline-block;
-    margin-left: 1em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 	background-position: center 2.4em;
 	background-repeat: no-repeat;
 	background-size: 145px;
@@ -276,12 +278,14 @@ header .layout-wrap > * {
 	background-image: url("../Images/icons/action-report-top.png");
     height: 4.21em;
     width: 29.5%;
+    left: 1.5%;
 }
 
 .nav-section:last-child {
 	background-image: url("../Images/icons/actions-help.png");
     height: 4.21em;
     width: 29.5%;
+    margin-inline-start: 5%;
 }
 
 .menu {
@@ -372,12 +376,16 @@ header .layout-wrap > * {
     z-index: 3;
     margin: auto;
     background: lightgray;
-    margin-top: -2%;
+    margin-top: -1em;
 }
 
-.tabs-inline {
+.tabs-labels {
 	width: 100%;
     position: relative;
+}
+
+.tabs-labels > ul{
+    display: flex;
 }
 
 .tabs {
@@ -387,59 +395,61 @@ header .layout-wrap > * {
     background: lightgray !important;
 }
 
-.tabs-inline li:first-child{
-    margin-left: -2em !important;
+.tabs-labels li:first-child{
+    margin-left: -1.99em !important;
 }
 
-.tabs-inline li:last-child{
-    margin-right: -7.2em !important;
+.tabs-labels li:last-child{
+	margin-left: 1em;
 }
 
 .tabs > div{
 	position: relative;
 	height: auto;
 	padding: 0em;
-	background-color: whitesmoke;
     width: 93%;
 }
 
-.tabs-inline li {
+.tabs-labels li {
 	background: #666663 ;
     color: white;
-	font-size: 20px;
+	font-size: 1.25em;
 	vertical-align: text-top;
 	text-align: center;
 	padding: 1%;
-	width: 23.68%;
+	width: 23.9%;
 	display: inline-block;
+	position: relative;
+	line-height: 200%;
+	margin-left: 1em;
 }
 
-.tabs-inline > ul > li.selected {
+.tabs-labels > ul > li.selected {
   background: lightgray;
   text-shadow: 0px 0px 10px gray;
 }
   
-.tabs-inline > ul > li.selected > a {
+.tabs-labels > ul > li.selected > a {
   color: black;
 }
 
-.tabs-inline li a {
+.tabs-labels li a {
     text-decoration: none;
 }
 
-.tabs-inline li a:link{
+.tabs-labels li a:link{
     color: white;   
 }
 
-.tabs-inline li a:visited{
+.tabs-labels li a:visited{
     color: white;   
 }
 
-.tabs-inline li a:hover{
+.tabs-labels li a:hover{
     color: black;   
 }
 
-.tabs-inline li a:active{
+.tabs-labels li a:active{
     color: black;   
 }
 
@@ -462,6 +472,7 @@ div.tabs div:target {display: block}
 .forms-style{
     position: absolute;
     background-color: whitesmoke;
+    width: 100%;
 }
 
 .report{
@@ -478,11 +489,13 @@ div.tabs div:target {display: block}
 .report-name{
     margin-left: 2em;
     color: black !important;
+    width: 13%;
 }
 
 .report-form{
-    margin-left: 6em;
+    margin-left: 5em;
     color: black !important;
+    width: 100%;
 }
 
 .margin-url-border{
@@ -512,19 +525,17 @@ div.tabs div:target {display: block}
 	border-style: solid;
     border-color: gray;
 	border-width: 1px;
+	width: 38%;
 }
 
 .frame {
   width: 100%;
   height: 32em;
-  border: 1px solid white;
-  margin-top: 50px;
-  -moz-box-shadow: gray 0px 0px 5px;
-  -webkit-box-shadow: gray 0px 0px 5px;
-  box-shadow: gray 0px 0px 5px; }
+  border: 1px white;
+  }
 
 .frame-margin{
-    margin-top:5%;
+    margin-top:4%;
 }
 
 /* ==========================================================================
