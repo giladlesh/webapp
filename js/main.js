@@ -511,6 +511,8 @@ function storeAction(){
 			var flag = checkForms("reportname0"+i,"reporturl0"+i);
 			if (flag == "succeded")
 				storeToData(GLOBALDATA.quick_reports,index++,"reportname0"+i,"reporturl0"+i);
+			else if (flag != "init" && flag != "succeded")
+				return
 			GLOBALINDEXQR = index-1;
 		}
 		GLOBALOPTIONQR = getElem("dropdown").innerHTML;
@@ -520,6 +522,8 @@ function storeAction(){
 			var flag = checkForms("foldername0"+i,"folderurl0"+i);
 			if (flag == "succeded")
 				storeToData(GLOBALDATA.my_folders,index++,"foldername0"+i,"folderurl0"+i);
+			else if (flag != "init" && flag != "succeded")
+				return
 			GLOBALINDEXTF = index-1;
 		}
 		GLOBALOPTIONFT = getElem("dropdown").innerHTML;
