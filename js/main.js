@@ -62,6 +62,7 @@ function initGlobals(){
 UTILS.addEvent(window,"DOMContentLoaded",init)
 
 UTILS.addEvent(getElem("report-setting"),"click",function(){
+	removeGoogleEvent(false);
 	var tab = getHash();
 	if (tab == "quick-reports"){
 		if (getElem("forms-quick").style.visibility == "hidden")
@@ -96,14 +97,18 @@ UTILS.addEvent(getElem("expand"),"click",function(){
 	}
 })
 
+function removeGoogleEvent(search){
+	UTILS.removeEvent(getElem("note"),"click",searchGoogle);
+	getElem("note").style.cursor = "";
+	if (!search)
+		getElem("search").value = "";
+}
+
 UTILS.addEvent(getElem("search"),"keypress",function(){
 	if (event.keyCode == 13)
 		searchBox();
 	else if (event.keyCode == 27){
-		UTILS.removeEvent(getElem("note"),"click",searchGoogle);
-		getElem("note").style.cursor = "";
-		getElem("search").value = "";
-		getNote();
+		removeGoogleEvent(false);
 	}
 })
 
@@ -177,10 +182,14 @@ function setElemStyleVis(elem,mode){
 function dropdownWrapperVis(vis){
 	if (vis){
 		setElemStyleVis("report-setting","visible");
+		getElem("expand").style.marginLeft = "90%"
+		getElem("expand").style.marginTop = "-1.6em"
 		setElemStyleVis("dropdown","visible");
 	}
 	else{
 		setElemStyleVis("report-setting","hidden");
+		getElem("expand").style.marginLeft = "94.2%"
+		getElem("expand").style.marginTop = "-1.8em"
 		setElemStyleVis("dropdown","hidden");
 	}
 }
@@ -279,6 +288,7 @@ function init(){
 }
 
 function locationHashChanged() {
+	removeGoogleEvent(false);
  	showRelevantTab();
 	if (!GLOBALFORMSSEARCH){
 		GLOBALFORMSSEARCH = false;
@@ -296,8 +306,7 @@ function locationHashChanged() {
 ****************************************************/
 
 function searchBox() {
-	UTILS.removeEvent(getElem("note"),"click",searchGoogle);
-	getElem("note").style.cursor = "";
+	removeGoogleEvent(true);
 	var field = (getElem("search").value).toLowerCase();
 	if (field == ""){
 		getNote();
@@ -463,7 +472,6 @@ function checkForms(name,url){
 	var flag = "init";
 	if (getElem(name).value != ""
 		&& isUrl(url)){
-			createElemDropdown(getElem(name).value,getElem(url).value);
 			flag = "succeded";
 		}
 	else if (getElem(name).value != ""
@@ -481,19 +489,26 @@ function checkForms(name,url){
 	return flag
 }
 
-function createElemDropdown(name,url){
-	z = document.createElement("option");
-    z.setAttribute("value", url);
-	t = document.createTextNode(firstToUpperCase(name));
-    z.appendChild(t);
-    getElem("dropdown").appendChild(z);
+function createElemDropdown(data,rep_name,rep_url){
+	for (i = 0; i < data.length; i++){
+		name = data[i].Name;
+		url = data[i].URL;
+		if (name != null && name != "null" && name != undefined && name != ""){
+			z = document.createElement("option");
+			z.setAttribute("value", url);
+			t = document.createTextNode(firstToUpperCase(name));
+			z.appendChild(t);
+			getElem("dropdown").appendChild(z);
+			j = i+1
+			getElem(rep_name+j).value = null;
+			getElem(rep_url+j).value = null;
+		}
+	}
 }
 
 function storeToData(data,i,name,url){
 	data[i]["Name"] = getElem(name).value;
 	data[i]["URL"] = getElem(url).value;
-	getElem(name).value = null;
-	getElem(url).value = null;
 }
 
 function activateFormFrame(fram,global,storage,frms,index){
@@ -515,6 +530,7 @@ function storeAction(){
 				return
 			GLOBALINDEXQR = index-1;
 		}
+		createElemDropdown(GLOBALDATA.quick_reports,"reportname0","reporturl0");
 		GLOBALOPTIONQR = getElem("dropdown").innerHTML;
 	}
 	else {
@@ -526,6 +542,7 @@ function storeAction(){
 				return
 			GLOBALINDEXTF = index-1;
 		}
+		createElemDropdown(GLOBALDATA.my_folders,"foldername0","folderurl0");
 		GLOBALOPTIONFT = getElem("dropdown").innerHTML;
 	}
 	localStorage.setItem("User_forms_storage", JSON.stringify(GLOBALDATA));

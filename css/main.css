@@ -197,20 +197,20 @@ header .general-layout > * {
 }
 
 .button {
-    height: 2em;
-    width: 3.2%;
+    height: 2.3em;
+    width: 3.3%;
 }
 
 .button-pop {
     background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/expand.png?raw=true');
-    margin-left: 89%;
-    margin-top: -1.5em;
+    margin-left: 90%;
+    margin-top: -1.6em;
     background-repeat: no-repeat;
 }
 
 .button-settings {
     background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/settings.png?raw=true');
-    margin-left: 93.3%;
+    margin-left: 93.2%;
     margin-top: -1.7em;
     background-repeat: no-repeat;
     background-position: center;
@@ -257,8 +257,8 @@ header .general-layout > * {
 	padding-top: 1%;
 	display: inline-block;
     margin-left: 2.5%;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 	background-position: center 2.4em;
 	background-repeat: no-repeat;
 	background-size: 145px;
@@ -521,6 +521,7 @@ div.tabs div:target {display: block}
 	border-style: solid;
     border-color: red;
 	border-width: 2px;
+	width: 38%;
 }
 
 .border{
