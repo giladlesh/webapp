@@ -36,18 +36,22 @@ function initGlobals(){
 	GLOBALFRAMES =["dynurl","my-folders-frame","dynurlteam","frame-public-folders"];
 
 	GLOBALELEMEXPAND = true;
-
-	GLOBALOPTIONQR = localStorage.getItem("User_opt_qr_storage") != undefined ? localStorage.getItem("User_opt_qr_storage") : null;
-
-	GLOBALOPTIONFT = localStorage.getItem("User_opt_ft_storage") != undefined ? localStorage.getItem("User_opt_ft_storage") : null;
-
-	GLOBALLASTTAB = oneOfTabs(localStorage.getItem("User_tab_storage")) == true ? localStorage.getItem("User_tab_storage"): null;
 	
-	var index = JSON.parse(localStorage.getItem("User_last_opt")).QR;
-	GLOBALINDEXQR = index != -1 ? index : -1;
+	GLOBALOPTIONQR = localStorage.getItem("User_opt_qr_storage") != null ? localStorage.getItem("User_opt_qr_storage") : null;
+
+	GLOBALOPTIONFT = localStorage.getItem("User_opt_ft_storage") != null ? localStorage.getItem("User_opt_ft_storage") : null;
+
+	GLOBALLASTTAB = oneOfTabs(localStorage.getItem("User_tab_storage")) == true ? localStorage.getItem("User_tab_storage"): oneOfTabs(getHash())==true ? getHash() : null;
 	
-	index = JSON.parse(localStorage.getItem("User_last_opt")).TF;
-	GLOBALINDEXTF = index != -1 ? index : -1;
+	var index = localStorage.getItem("User_last_opt");
+	if (index != null){
+		GLOBALINDEXQR = JSON.parse(index).QR;
+		GLOBALINDEXTF = JSON.parse(index).TF;
+	}
+	else{
+		GLOBALINDEXQR = -1;
+		GLOBALINDEXTF = -1;		
+	}
 	
 	GLOBALFORMSSEARCH = false;
 }
@@ -95,6 +99,12 @@ UTILS.addEvent(getElem("expand"),"click",function(){
 UTILS.addEvent(getElem("search"),"keypress",function(){
 	if (event.keyCode == 13)
 		searchBox();
+	else if (event.keyCode == 27){
+		UTILS.removeEvent(getElem("note"),"click",searchGoogle);
+		getElem("note").style.cursor = "";
+		getElem("search").value = "";
+		getNote();
+	}
 })
 
 UTILS.addEvent(getElem("report-save"),"click",storeAction)
@@ -287,6 +297,7 @@ function locationHashChanged() {
 
 function searchBox() {
 	UTILS.removeEvent(getElem("note"),"click",searchGoogle);
+	getElem("note").style.cursor = "";
 	var field = (getElem("search").value).toLowerCase();
 	if (field == ""){
 		getNote();
@@ -324,8 +335,9 @@ function searchBox() {
 		}
 	}
 	else{
-		getElem("note").innerHTML  = "Report name "+"<em><strong><ins>"+firstToUpperCase(field)+"</em></strong></ins>"+" has not been found in forms, Click to search Google";
+		getElem("note").innerHTML  = "Report name "+"<em><strong><ins>"+firstToUpperCase(field)+"</em></strong></ins>"+" has not been found in forms, Click to search in Google";
 		UTILS.addEvent(getElem("note"),"click",searchGoogle);
+		getElem("note").style.cursor = "pointer";
 	}
 }
 
@@ -381,7 +393,7 @@ function showRelevantTab() {
 		changeTabClass(hash);
 		setElemStyleVis(hash,"visible");
 		getElem("keytab").style.height = "37em";
-		getElem("ribbon-wrapper").style.background = "lightgray";
+		getElem("dashboard").style.background = "lightgray";
 		if (GLOBALELEMEXPAND == true || getElem("expand").style.visibility == "hidden"){
 			setElemStyleVis("expand","visible");
 			GLOBALELEMEXPAND = false;
@@ -396,7 +408,7 @@ function showRelevantTab() {
 	}
 	else{
 		getElem("keytab").style.height = "0";
-		getElem("ribbon-wrapper").style.background = "transparent";
+		getElem("dashboard").style.background = "transparent";
 		setElemStyleVis("expand","hidden");
 		if (oneOfTabs(GLOBALLASTTAB))
 			getElem(GLOBALLASTTAB+"-label").classList.remove("selected");
@@ -439,7 +451,9 @@ function dropDownSrcVis(store){
 
 function checkLocalData(){
 	var str = loadUserData();
-	if ((str == null || str.quick_reports[0].Name == null || str.quick_reports[0].Name == "") &&
+	if (str == null)
+		return false;
+	else if ((str.quick_reports[0].Name == null || str.quick_reports[0].Name == "") &&
 			(str.my_folders[0].Name == null || str.my_folders[0].Name == ""))
 		return false;
 	return true;

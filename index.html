@@ -21,19 +21,18 @@
 
         <!-- Add your site or application content here -->
 		<header>
-			<div class="layout-wrap">
-				<a href="#" class="logo"><p>netcraft</p><img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
+			<div class="general-layout">
+				<a href="#" class="logo"><img src="https://googledrive.com/host/0B6ZIsommzsgVMVA2MzdKUjN2S0U/logo-netcraft.svg" alt="netcraft"></a>
 				<input class="search-box" id="search" type="text"/>
 			</div>
 		</header>
-		<div class="page-body layout-wrap">
+		<div class="body general-layout">
 			<div class="notifications" id="note"></div>
-			<nav class="nav-section-inline center">
+			<nav class="inline-section center">
 				<div class="nav-section">
 					<p>Select</p><p>Reporting Platform</p>
-
 					<div class="menu">
-						<div class="menu-hint">
+						<div class="menu-title">
 							<p>Choose QS report</p>
 							<div class="arrow"></div>
 						</div>
@@ -52,7 +51,7 @@
 					<p>Select</p><p>Dashboard</p>
 
 					<div class="menu">
-						<div class="menu-hint">
+						<div class="menu-title">
 							<p>Choose dashboard</p>
 							<div class="arrow"></div>
 						</div>
@@ -71,7 +70,7 @@
 					<p>Help &amp;</p><p>Tutorials</p>
 
 					<div class="menu">
-						<div class="menu-hint">
+						<div class="menu-title">
 							<p>Choose guide</p>
 							<div class="arrow"></div>
 						</div>
@@ -97,14 +96,14 @@
 					<li id="public-folders-label"><a id="public-folders-ref" href="#public-folders">Public Folders</a>
 					</li>
 				</ul>
-				<div id="ribbon-wrapper"class="ribbon-wrapper">
+				<div id="dashboard" class="dashboard">
                     <select class="dropdown-box" id="dropdown"></select>
                     <div id="report-setting" class="button button-settings"></div>
                     <div id="expand" class="button button-pop" ></div>
                 </div>
 			</div>
 				<div class="tabs" id="keytab">
-					<div id="quick-reports" class="layout-wrap center">
+					<div id="quick-reports" class="general-layout center">
 						<form class="forms-style" id="forms-quick">
 							<ul>
 							<li class="report">
@@ -138,14 +137,14 @@
                             <button id="report-cancel" name="#quick-reports" class="cancel-button" type="button">Cancel</button>
                             <button id="report-save" name="#quick-reports" class="save-button" type="button">Save</button>
 						</form>
-						<iframe class= "frame frame-margin" id="dynurl" src="about:blank"></iframe>
+						<iframe class= "frame" id="dynurl" src="about:blank"></iframe>
 					</div>
 
-					<div id="my-folders" class="layout-wrap center">
+					<div id="my-folders" class="general-layout center">
 						<iframe class= "frame" id="my-folders-frame" src="http://www.ptc.com"></iframe>
 					</div>
 
-					<div id="my-team-folders"  class="layout-wrap center">
+					<div id="my-team-folders"  class="general-layout center">
 						<form class="forms-style" id="forms-team">
 							<ul>
 							<li class="report">
@@ -182,7 +181,7 @@
 						<iframe class= "frame" id="dynurlteam" src="about:blank"></iframe>
 					</div>
 
-					<div id="public-folders"  class="layout-wrap center">
+					<div id="public-folders"  class="general-layout center">
 						<iframe class= "frame" id="public-folders-frame" src="http://www.netcraft.co.il"></iframe>
 					</div>
 				</div>

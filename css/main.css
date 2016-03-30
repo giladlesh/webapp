@@ -95,15 +95,15 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-.layout-wrap {
+.general-layout {
 	margin-left: auto;
 	margin-right: auto; }
 @media only screen and (max-width: 800px) {
-.layout-wrap {
+.general-layout {
     width: auto; }
 }
 @media only screen and (min-width: 800px) {
-.layout-wrap {
+.general-layout {
     width: 75%; }
 }
 
@@ -111,39 +111,37 @@ textarea {
 	display:inline-block;
 }
    
-.layout-wrap-body{
+.general-layout-body{
     margin-right:10em;
     margin-left: 10em;
 	background-color:#000000;
 }
 
-.layout-wrap-header{
+.general-layout-header{
 	background-color:#000000;
     margin-right: auto;
     margin-right: auto;
 }
 
-.layout-wrap-header a{
+.general-layout-header a{
 	padding:5%;
 }
-
 
 header {
 	z-index: 10;
 	position: fixed;
-	top: 0;
 	left: 0;
 	right: 0;
 	background-color: black;
 }
 
-header .layout-wrap {
+header .general-layout {
 	padding-left: 14px;
 	padding-right: 14px;
-	margin-top: 5px;
+	margin-top: 7px;
  }
  
-header .layout-wrap > * {
+header .general-layout > * {
 	display: inline-block;
 }
 
@@ -165,18 +163,18 @@ header .layout-wrap > * {
 	padding: 7px;
 }
    
-.page-body {
+.body {
 	background-color: #767b7a;
 	padding: 2em;
 	padding-bottom: 0;
 }
 
-.page-body > div{
+.body > div {
 	background-color: #767b7a;
 	margin:auto;
 }
 
-.page-body > div:first-child {
+.body > div:first-child {
 	margin-top: 0em;
 }
 
@@ -192,25 +190,25 @@ header .layout-wrap > * {
 	margin: auto;
 }
    
-.dropdown-box{
+.dropdown-box {
     width: 16%;
     margin-top: 1em;
     margin-left: 3.3%;
 }
 
-.button{
+.button {
     height: 2em;
     width: 3.2%;
 }
 
-.button-pop{
+.button-pop {
     background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/expand.png?raw=true');
     margin-left: 89%;
     margin-top: -1.5em;
     background-repeat: no-repeat;
 }
 
-.button-settings{
+.button-settings {
     background:url('https://github.com/giladlesh/webapp/blob/gh-pages/Images/icons/settings.png?raw=true');
     margin-left: 93.3%;
     margin-top: -1.7em;
@@ -218,15 +216,23 @@ header .layout-wrap > * {
     background-position: center;
 }
 
-.save-button{
+.forms-style > button {
+	height: 2em;
+}
+
+.tabs > div > iframe {
+	margin-top: 3em;
+}
+
+.save-button {
     width:7.4%;
     height:2.5em;
-    margin-bottom: 1.5%;
+    margin-bottom: 1%;
     background:black;   
     color:white;
 }
 
-.cancel-button{
+.cancel-button {
     margin-left:80%;
     height: 2.5em;
     width: 7.4%;
@@ -234,7 +240,7 @@ header .layout-wrap > * {
     color:black;
 }
 
-.nav-section-inline {
+.inline-section {
 	width: 100%;
     background-color: lightgray;
     margin-top: 1em;
@@ -248,12 +254,9 @@ header .layout-wrap > * {
     color: #FFFFFF;
 	font-size: 26px;
     padding-bottom: 4%;
-	padding-left:0;
-	padding-right:0;
-	padding-top:1%;
-	width: 25%;
+	padding-top: 1%;
 	display: inline-block;
-    margin-left: 2%;
+    margin-left: 2.5%;
     margin-top: 1%;
     margin-bottom: 1%;
 	background-position: center 2.4em;
@@ -271,21 +274,19 @@ header .layout-wrap > * {
 .nav-section:first-child {
 	background-image: url("../Images/icons/action-report-new.png");
     height: 4.21em;
-    width: 29.5%;
+    width: 29.7%;
 }
 
 .nav-section:nth-child(2) {
 	background-image: url("../Images/icons/action-report-top.png");
     height: 4.21em;
-    width: 29.5%;
-    left: 1.5%;
+    width: 29.7%;
 }
 
 .nav-section:last-child {
 	background-image: url("../Images/icons/actions-help.png");
     height: 4.21em;
-    width: 29.5%;
-    margin-inline-start: 5%;
+    width: 29.7%;
 }
 
 .menu {
@@ -302,7 +303,7 @@ header .layout-wrap > * {
 	z-index: 5;
 }
 
-.menu-hint {
+.menu-title {
 	height: 100%;
 	width: 100%;
 	font-size: 0.6em;
@@ -344,7 +345,7 @@ header .layout-wrap > * {
 	list-style: none;
 }
 
-.nav-section:hover .action-list{
+.nav-section:hover .action-list {
 	opacity: 1;
 	visibility: visible;
 	line-height: 20px;
@@ -358,7 +359,7 @@ header .layout-wrap > * {
 	background-color: #CCCCCCC;
 }
 
-.menu .action-list a{
+.menu .action-list a {
 	display: block;
 	width: 100%;
 	line-height: 25px;
@@ -368,7 +369,7 @@ header .layout-wrap > * {
 	font-size: 18px;
 }
 
-.ribbon-wrapper{
+.dashboard {
     width: 100%;
     height: 3em !important;
     padding: 0em !important;
@@ -384,7 +385,7 @@ header .layout-wrap > * {
     position: relative;
 }
 
-.tabs-labels > ul{
+.tabs-labels > ul {
     display: flex;
 }
 
@@ -395,15 +396,15 @@ header .layout-wrap > * {
     background: lightgray !important;
 }
 
-.tabs-labels li:first-child{
+.tabs-labels li:first-child {
     margin-left: -1.99em !important;
 }
 
-.tabs-labels li:last-child{
+.tabs-labels li:last-child {
 	margin-left: 1em;
 }
 
-.tabs > div{
+.tabs > div {
 	position: relative;
 	height: auto;
 	padding: 0em;
@@ -437,15 +438,15 @@ header .layout-wrap > * {
     text-decoration: none;
 }
 
-.tabs-labels li a:link{
+.tabs-labels li a:link {
     color: white;   
 }
 
-.tabs-labels li a:visited{
+.tabs-labels li a:visited {
     color: white;   
 }
 
-.tabs-labels li a:hover{
+.tabs-labels li a:hover {
     color: black;   
 }
 
@@ -473,6 +474,11 @@ div.tabs div:target {display: block}
     position: absolute;
     background-color: whitesmoke;
     width: 100%;
+	margin-top: 3em;
+}
+
+.forms-style > ul{
+    margin-bottom: 0.5em;
 }
 
 .report{
@@ -480,10 +486,6 @@ div.tabs div:target {display: block}
     background: lightgray;
     margin-top: 1%;
     width: 95%;
-}
-
-.report:first-child{
-    margin-top: 6%;
 }
 
 .report-name{
@@ -534,9 +536,6 @@ div.tabs div:target {display: block}
   border: 1px white;
   }
 
-.frame-margin{
-    margin-top:4%;
-}
 
 /* ==========================================================================
    dropdown
