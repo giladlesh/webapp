@@ -104,10 +104,10 @@ function removeGoogleEvent(search){
 		getElem("search").value = "";
 }
 
-UTILS.addEvent(getElem("search"),"keypress",function(){
-	if (event.keyCode == 13)
+UTILS.addEvent(getElem("search"),"keyup",function(e){
+	if (e.keyCode == 13)
 		searchBox();
-	else if (event.keyCode == 27){
+	else if (e.keyCode == 27){
 		removeGoogleEvent(false);
 	}
 })
@@ -196,10 +196,10 @@ function dropdownWrapperVis(vis){
 
 function addInputEvents(arr,save,cancel){
 	for (i=0; i<arr.length; i++){
-		UTILS.addEvent(getElem(arr[i]),"keypress",function() {
-			if (event.keyCode == 13)
+		UTILS.addEvent(getElem(arr[i]),"keyup",function(e) {
+			if (e.keyCode == 13)
 				getElem(save).click();
-			else if (event.keyCode == 27)
+			else if (e.keyCode == 27)
 				getElem(cancel).click();
 		});
 	}
